@@ -57,11 +57,9 @@ endif
 			${CC} ${CFLAGS} -o ${NAME} ${OBJS} ${LIB} -lm
 clean:
 			rm -f ${OBJS}
-			# rm -f ${BO_OBJS}
 
 fclean:		clean
 			rm -f ${NAME}
-			# rm -f ${BONUS_N}
 
 fclean_lib:
 ifneq ($(LIBFT),false)

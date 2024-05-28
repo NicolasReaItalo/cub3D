@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:56:53 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/28 10:42:42 by nrea             ###   ########.fr       */
+/*   Updated: 2024/05/28 13:53:53 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,7 @@ int			ft_abs_int(int value);
 t_vector2d	ft_apply2dmat(t_vector2d point, double m[2][2]);
 void		ft_scalar_mul(t_vector2d *p, double scalar);
 
-/*srcs/parsing_utils.c*/
-int			ft_check_extension(char *s);
+
 /*srcs/pixel.c*/
 void		ft_pixel(t_img *screen_img, int x, int y, int color);
 /* srcs/utils.c*/
@@ -87,3 +86,22 @@ void		ft_print_cmd(void);
 int			ft_destroy_window(t_data *data);
 void		ft_end_safe(t_data *data);
 #endif
+
+
+///PARSING
+
+#define	SUCCESS	0
+#define	ERR_INVALID_EXTENSION	1
+#define	ERR_OPEN	2 // ajouter perror
+#define	ERR_INTERNAL	3
+
+typedef struct	s_line
+{
+	char			*content;
+	struct s_line	*next;
+}	t_line;
+
+/*srcs/parsing_utils.c*/
+int		ft_check_extension(char *s);
+int		load_scene(char *file_path, t_line **scene);
+void	free_scene(t_line **scene);
