@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 11:17:54 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/27 12:57:56 by nrea             ###   ########.fr       */
+/*   Updated: 2024/05/28 15:50:06 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ int	ft_lerp(int c1, int c2, double f)
 
 int	rgb_to_int(unsigned char r, unsigned char g, unsigned char b)
 {
-	return (r | g | b);
+	return (r <<16| g <<8 | b);
 }

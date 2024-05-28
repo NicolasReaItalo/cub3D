@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 11:55:45 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/27 12:57:56 by nrea             ###   ########.fr       */
+/*   Updated: 2024/05/28 15:37:11 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,7 @@ int	ft_split_size(char **splitted)
 		return (0);
 	size = 0;
 	while (splitted[size])
-	{
-		if (!(ft_isdigit(splitted[size][0]) || splitted[size][0] == '-'))
-			break ;
 		size++;
-	}
 	return (size);
 }
 

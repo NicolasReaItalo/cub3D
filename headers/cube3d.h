@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:56:53 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/28 13:55:33 by nrea             ###   ########.fr       */
+/*   Updated: 2024/05/28 16:38:25 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct s_img
 	int		bpp;
 	int		line_len;
 	int		endian;
+	int		width;
+	int		height;
 }	t_img;
 
 typedef struct s_data
@@ -97,11 +99,17 @@ void		ft_end_safe(t_data *data);
 
 ///PARSING
 
+#define	ERROR_NB	10
 #define	SUCCESS	0
 #define	ERR_INVALID_EXTENSION	1
 #define	ERR_OPEN	2 // ajouter perror
 #define	ERR_INTERNAL	3
+#define	ERR_COLOR	4
+#define	ERR_TEX	5
 
+#define	ERROR_LIST	"ok;Extensions must be .cub;File opening:;\
+					An internal error has occured;Invalid color formatting;\
+					Texture loading issue"
 typedef struct	s_line
 {
 	char			*content;
@@ -112,3 +120,5 @@ typedef struct	s_line
 int		ft_check_extension(char *s);
 int		load_scene(char *file_path, t_line **scene);
 void	free_scene(t_line **scene);
+int		error_handler(int error_code);
+int	parse_scene(t_line **scene, t_data *data);

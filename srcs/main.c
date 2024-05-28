@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:49:18 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/28 10:42:42 by nrea             ###   ########.fr       */
+/*   Updated: 2024/05/28 13:57:46 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	ft_render(t_data *data)
 	if (data->win_ptr == NULL || data->mlx_ptr == NULL)
 		return (1);
 	ft_refresh(&data->screen_img, 0x002255);
+
+
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, screen_img, 0, 0);
 	return (0);
 }
