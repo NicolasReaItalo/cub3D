@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cube3D.h                                           :+:      :+:    :+:   */
+/*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:56:53 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/27 12:57:24 by nrea             ###   ########.fr       */
+/*   Updated: 2024/05/28 10:42:42 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,14 @@ typedef struct s_data
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
-	t_img	img;
+	t_img	screen_img;
+
+
+
 	int		**map;
+
+
+
 }	t_data;
 
 /* srcs/colors.c */
@@ -71,7 +77,7 @@ void		ft_scalar_mul(t_vector2d *p, double scalar);
 /*srcs/parsing_utils.c*/
 int			ft_check_extension(char *s);
 /*srcs/pixel.c*/
-void		ft_pixel(t_img *img, int x, int y, int color);
+void		ft_pixel(t_img *screen_img, int x, int y, int color);
 /* srcs/utils.c*/
 void		ft_free_split(char **split);
 int			ft_split_size(char **splitted);

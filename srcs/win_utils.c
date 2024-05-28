@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 14:59:29 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/27 12:57:56 by nrea             ###   ########.fr       */
+/*   Updated: 2024/05/28 10:42:42 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 /*Function called in case of closing window signal or ESC button pressed*/
 void	ft_end_safe(t_data *data)
 {
-	t_img	*img;
+	t_img	*screen_img;
 
-	img = &(data->img);
-	if (img->mlx_img)
-		mlx_destroy_image(data->mlx_ptr, img->mlx_img);
+	screen_img = &(data->screen_img);
+	if (screen_img->mlx_img)
+		mlx_destroy_image(data->mlx_ptr, screen_img->mlx_img);
 	mlx_destroy_display(data->mlx_ptr);
 	free(data->mlx_ptr);
 	data->win_ptr = NULL;

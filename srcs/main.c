@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:49:18 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/27 12:57:56 by nrea             ###   ########.fr       */
+/*   Updated: 2024/05/28 10:42:42 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,17 @@ int	ft_render(t_data *data)
 {
 	void	*mlx;
 	void	*win;
-	void	*img;
+	void	*screen_img;
 	int		col;
 
-	img = data->img.mlx_img;
+	screen_img = data->screen_img.mlx_img;
 	col = 0xFF00FF;
 	mlx = data->mlx_ptr;
 	win = data->win_ptr;
 	if (data->win_ptr == NULL || data->mlx_ptr == NULL)
 		return (1);
-	ft_refresh(&data->img, 0x002255);
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, img, 0, 0);
+	ft_refresh(&data->screen_img, 0x002255);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, screen_img, 0, 0);
 	return (0);
 }
 
@@ -66,12 +66,12 @@ int	ft_set_img(t_data *data)
 	int		*e;
 	int		*l;
 
-	data->img.mlx_img = mlx_new_image(data->mlx_ptr, SCREEN_WIDTH, SCREEN_HEIGHT);
-	if (!data->img.mlx_img)
+	data->screen_img.mlx_img = mlx_new_image(data->mlx_ptr, SCREEN_WIDTH, SCREEN_HEIGHT);
+	if (!data->screen_img.mlx_img)
 		return (0);
-	e = &data->img.endian;
-	l = &data->img.line_len;
-	data->img.addr = mlx_get_data_addr(data->img.mlx_img, &data->img.bpp, l, e);
+	e = &data->screen_img.endian;
+	l = &data->screen_img.line_len;
+	data->screen_img.addr = mlx_get_data_addr(data->screen_img.mlx_img, &data->screen_img.bpp, l, e);
 	return (1);
 }
 
