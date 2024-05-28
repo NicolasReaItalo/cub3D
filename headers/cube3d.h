@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:56:53 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/28 10:42:42 by nrea             ###   ########.fr       */
+/*   Updated: 2024/05/28 11:00:15 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 # include "../libft/libft.h"
 # include  "../minilibx-linux/mlx.h"
 
-# define SCREEN_WIDTH 1200
-# define SCREEN_HEIGHT 800
+# define SCREEN_WIDTH 800
+# define SCREEN_HEIGHT 600
 
 typedef struct s_vector2d
 {
@@ -47,16 +47,23 @@ typedef struct s_img
 
 typedef struct s_data
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
-	t_img	screen_img;
+	void		*mlx_ptr;
+	void		*win_ptr;
+	t_img		screen_img;
 
+	t_img		N_img;
+	t_img		S_img;
+	t_img		E_img;
+	t_img		W_img;
 
+	int			f_color;
+	int			c_color;
 
-	int		**map;
+	t_vector2d	pos;
+	t_vector2d	dir;
+	t_vector2d	cam;
 
-
-
+	int			**map;
 }	t_data;
 
 /* srcs/colors.c */
@@ -87,3 +94,4 @@ void		ft_print_cmd(void);
 int			ft_destroy_window(t_data *data);
 void		ft_end_safe(t_data *data);
 #endif
+
