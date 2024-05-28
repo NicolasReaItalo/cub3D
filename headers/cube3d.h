@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:56:53 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/28 11:00:15 by nrea             ###   ########.fr       */
+/*   Updated: 2024/05/28 17:18:21 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,12 @@
 # include "../libft/libft.h"
 # include  "../minilibx-linux/mlx.h"
 
-# define SCREEN_WIDTH 800
-# define SCREEN_HEIGHT 600
+# define SCREEN_WIDTH 1024
+# define SCREEN_HEIGHT 780
+# define FOV M_PI/2
+# define WALL_HEIGHT 100
+# define ALPHA 0.04
+# define SPEED 0.05
 
 typedef struct s_vector2d
 {
@@ -63,8 +67,23 @@ typedef struct s_data
 	t_vector2d	dir;
 	t_vector2d	cam;
 
-	int			**map;
+	int			map[24][24];
 }	t_data;
+
+typedef struct s_rayCast
+{
+	int			case_x;
+	int			case_y;
+	t_vector2d	ray;
+	t_vector2d	delta;
+	t_vector2d	sidedist;
+	double		wallDist;
+	int			stepx;
+	int			stepy;
+	int			hit;
+	int			side;
+	int			x;
+}			t_rayCast;
 
 /* srcs/colors.c */
 int			ft_lerp(int c1, int c2, double f);
@@ -93,5 +112,7 @@ t_vector2d	ft_compute_abs_diff(t_vector2d p0, t_vector2d p1);
 void		ft_print_cmd(void);
 int			ft_destroy_window(t_data *data);
 void		ft_end_safe(t_data *data);
+
+void	cast_angles(t_data data);
 #endif
 

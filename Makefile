@@ -4,7 +4,7 @@
 NAME	=	cub3D
 CC		=	cc
 HEADERS	=	./headers
-CFLAGS	=	-Wall -Wextra -Werror -I ${HEADERS}
+CFLAGS	=	-Wall -Wextra -Werror -g3 -I ${HEADERS}
 #########################################################
 ### LIBS
 #########################################################
@@ -28,7 +28,8 @@ SRCS	=	srcs/colors.c\
 			srcs/parsing_utils.c\
 			srcs/pixel.c\
 			srcs/utils.c\
-			srcs/win_utils.c
+			srcs/win_utils.c\
+			srcs/rayCast_angles.c
 #########################################################
 ### DEBUG
 #########################################################
