@@ -6,7 +6,7 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:43:23 by qgiraux           #+#    #+#             */
-/*   Updated: 2024/05/29 13:52:23 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/29 15:58:15 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,15 @@ static void	ft_forward(t_data *data)
 	}
 }
 
-static void	ft_backward(t_data *data)
+static void	ft_strafe(t_data *data)
 {
 	double	tmpx;
 	double	tmpy;
 
 	if (data->keypress[2] == 1)
 	{
-		tmpx = data->pos.x - data->pos.x * (data->dir.y * SPEED);
-		tmpy = data->pos.y + data->pos.y * (data->dir.x * SPEED);
+		tmpx = data->pos.x - data->pos.x * (data->dir.y * STRAFE);
+		tmpy = data->pos.y + data->pos.y * (data->dir.x * STRAFE);
 		if (1 != data->map[(int)tmpx][(int)tmpy])
 		{
 			data->pos.x = tmpx;
@@ -81,8 +81,8 @@ static void	ft_backward(t_data *data)
 	}
 	if (data->keypress[3] == 1)
 	{
-		tmpx = data->pos.x + data->pos.x * (data->dir.y * SPEED);
-		tmpy = data->pos.y - data->pos.y * (data->dir.x * SPEED);
+		tmpx = data->pos.x + data->pos.x * (data->dir.y * STRAFE);
+		tmpy = data->pos.y - data->pos.y * (data->dir.x * STRAFE);
 		if (1 != data->map[(int)tmpx][(int)tmpy])
 		{
 			data->pos.x = tmpx;
@@ -93,7 +93,7 @@ static void	ft_backward(t_data *data)
 
 int	ft_keyact(t_data *data)
 {
-	ft_backward(data);
+	ft_strafe(data);
 	ft_forward(data);
 	ft_rotate(data);
 	return (0);

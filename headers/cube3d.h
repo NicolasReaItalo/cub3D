@@ -6,7 +6,7 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:56:53 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/29 13:37:30 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/29 16:10:52 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define SCREEN_H 768
 # define ALPHA 0.02
 # define SPEED 0.01
+# define STRAFE 0.003
 
 typedef struct s_vector2d
 {
@@ -44,7 +45,16 @@ typedef struct s_img
 	int		bpp;
 	int		line_len;
 	int		endian;
+	char	*data;
 }	t_img;
+
+typedef struct s_tex
+{
+	t_img	img;
+	int		width;
+	int		height;
+	char	*path;
+}	t_tex;
 
 typedef struct s_data
 {
@@ -52,10 +62,10 @@ typedef struct s_data
 	void		*win_ptr;
 	t_img		screen_img;
 
-	t_img		n_img;
-	t_img		s_img;
-	t_img		e_img;
-	t_img		w_img;
+	t_tex		n_img;
+	t_tex		w_img;
+	t_tex		s_img;
+	t_tex		e_img;
 
 	int			f_color;
 	int			c_color;
@@ -64,6 +74,8 @@ typedef struct s_data
 	t_vector2d	dir;
 	t_vector2d	cam;
 
+	int			map_w;
+	int			map_h;
 	int			map[24][24];
 	int			keypress[6];
 }	t_data;
