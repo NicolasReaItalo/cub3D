@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:56:53 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/29 14:23:59 by nrea             ###   ########.fr       */
+/*   Updated: 2024/05/29 17:15:53 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,20 +106,30 @@ void		ft_end_safe(t_data *data);
 
 ///PARSING
 
-#define	ERROR_NB	10
 #define	SUCCESS	0
 #define	ERR_INVALID_EXTENSION	1
-#define	ERR_OPEN	2 // ajouter perror
+#define	ERR_OPEN	2
 #define	ERR_INTERNAL	3
 #define	ERR_COLOR	4
 #define	ERR_TEX	5
 #define	ERR_CHAR	6
-#define	ERR_INVALID_MAP	7
+#define	ERR_POS_ALREADY_SET	7
+#define	ERR_POS_NOT_SET	8
+#define	ERR_MAP_NOT_CLOSED	9
+#define	ERR_MAP_DIMENSIONS	10
 
-#define	ERROR_LIST	"ok;Extensions must be .cub;Scene:;\
-					An internal error has occured;Invalid color;\
-					parsing texture path issue;Invalid character found\
-					 at line start;Invalid map character"
+#define	ERROR_LIST	"SUCCESS !;\
+Extensions must be .cub;\
+Scene:An internal error has occured;\
+Invalid color;\
+parsing texture path issue;\
+Invalid character found at line start;\
+Invalid map character or empty line;\
+The position can only be set once;\
+The starting position and direction must be set;\
+The map is not closed;\
+The map must be at least 3x3;\
+;;"
 typedef struct	s_line
 {
 	char			*content;
@@ -131,4 +141,5 @@ int		ft_check_extension(char *s);
 int		load_scene(char *file_path, t_line **scene);
 void	free_scene(t_line **scene);
 int		error_handler(int error_code);
-int	parse_scene(t_line **scene, t_data *data);
+int		parse_scene(t_line **scene, t_data *data);
+int		free_map(int **map, int map_h);
