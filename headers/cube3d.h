@@ -6,10 +6,9 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:56:53 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/28 17:18:21 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/29 13:37:30 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef CUBE3D_H
 # define CUBE3D_H
@@ -27,12 +26,10 @@
 # include "../libft/libft.h"
 # include  "../minilibx-linux/mlx.h"
 
-# define SCREEN_WIDTH 1024
-# define SCREEN_HEIGHT 780
-# define FOV M_PI/2
-# define WALL_HEIGHT 100
-# define ALPHA 0.04
-# define SPEED 0.05
+# define SCREEN_W 1024
+# define SCREEN_H 768
+# define ALPHA 0.02
+# define SPEED 0.01
 
 typedef struct s_vector2d
 {
@@ -55,10 +52,10 @@ typedef struct s_data
 	void		*win_ptr;
 	t_img		screen_img;
 
-	t_img		N_img;
-	t_img		S_img;
-	t_img		E_img;
-	t_img		W_img;
+	t_img		n_img;
+	t_img		s_img;
+	t_img		e_img;
+	t_img		w_img;
 
 	int			f_color;
 	int			c_color;
@@ -68,6 +65,7 @@ typedef struct s_data
 	t_vector2d	cam;
 
 	int			map[24][24];
+	int			keypress[6];
 }	t_data;
 
 typedef struct s_rayCast
@@ -77,7 +75,7 @@ typedef struct s_rayCast
 	t_vector2d	ray;
 	t_vector2d	delta;
 	t_vector2d	sidedist;
-	double		wallDist;
+	double		walldist;
 	int			stepx;
 	int			stepy;
 	int			hit;
@@ -91,6 +89,8 @@ int			rgb_to_int(unsigned char r, unsigned char g, unsigned char b);
 
 /*srcs/events.c*/
 int			ft_keypress(int key, t_data *data);
+int			ft_keyrelease(int key, t_data *data);
+int			ft_keyact(t_data *data);
 /*srcs/exit.c*/
 void		ft_exit_mlx_init(t_data *data);
 void		ft_exit_mlx_window(t_data *data);
@@ -113,6 +113,6 @@ void		ft_print_cmd(void);
 int			ft_destroy_window(t_data *data);
 void		ft_end_safe(t_data *data);
 
-void	cast_angles(t_data data);
+void		cast_angles(t_data data);
+void		draw(t_rayCast caster, t_data data);
 #endif
-

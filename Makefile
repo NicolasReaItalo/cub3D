@@ -29,7 +29,9 @@ SRCS	=	srcs/colors.c\
 			srcs/pixel.c\
 			srcs/utils.c\
 			srcs/win_utils.c\
-			srcs/rayCast_angles.c
+			srcs/rayCast_angles.c\
+			srcs/rayCast_draw.c\
+			srcs/movements.c\
 #########################################################
 ### DEBUG
 #########################################################

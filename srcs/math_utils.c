@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   math_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:11:41 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/27 12:57:56 by nrea             ###   ########.fr       */
+/*   Updated: 2024/05/29 13:54:46 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	ft_abs_int(int value)
 		value++;
 	return (-value);
 }
-
 
 t_vector2d	ft_apply2dmat(t_vector2d point, double m[2][2])
 {

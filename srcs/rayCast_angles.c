@@ -6,18 +6,18 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:25:11 by qgiraux           #+#    #+#             */
-/*   Updated: 2024/05/28 17:08:36 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/29 13:39:12 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-t_rayCast	first_step(t_rayCast caster, t_data data)
+static t_rayCast	first_step(t_rayCast caster, t_data data)
 {
 	if (caster.ray.x < 0)
 	{
 		caster.stepx = -1;
-		caster.sidedist.x = (data.pos.x - caster.case_x)* caster.delta.x;
+		caster.sidedist.x = (data.pos.x - caster.case_x) * caster.delta.x;
 	}
 	else
 	{
@@ -35,80 +35,42 @@ t_rayCast	first_step(t_rayCast caster, t_data data)
 		caster.sidedist.y = (caster.case_y + 1 - data.pos.y) * caster.delta.y;
 	}
 	return (caster);
-
 }
 
-t_rayCast find_wall(t_rayCast caster, t_data data)
+static t_rayCast	_dist(t_rayCast caster)
+{
+	if (caster.sidedist.x < caster.sidedist.y)
+	{
+		caster.sidedist.x = caster.sidedist.x + caster.delta.x;
+		caster.case_x = caster.case_x + caster.stepx;
+		caster.side = 2;
+		if (caster.ray.x < 0)
+			caster.side = 0;
+	}
+	else
+	{
+		caster.sidedist.y = caster.sidedist.y + caster.delta.y;
+		caster.case_y = caster.case_y + caster.stepy;
+		caster.side = 3;
+		if (caster.ray.y < 0)
+			caster.side = 1;
+	}
+	return (caster);
+}
+
+static t_rayCast	find_wall(t_rayCast caster, t_data data)
 {
 	while (caster.hit == 0)
 	{
-		if (caster.sidedist.x < caster.sidedist.y)
-		{
-			caster.sidedist.x = caster.sidedist.x + caster.delta.x;
-			caster.case_x = caster.case_x + caster.stepx;
-			if (caster.ray.x < 0)
-				caster.side = 0;
-			else
-				caster.side = 2;
-		}
-		else
-		{
-			caster.sidedist.y = caster.sidedist.y + caster.delta.y;
-			caster.case_y = caster.case_y + caster.stepy;
-			if (caster.ray.y < 0)
-				caster.side = 1;
-			else
-				caster.side = 3;
-		}
+		caster = _dist(caster);
 		if (data.map[caster.case_x][caster.case_y] > 0)
 			caster.hit = 1;
 	}
 	if (caster.side == 0 || caster.side == 2)
-		caster.wallDist = caster.sidedist.x - caster.delta.x;
+		caster.walldist = caster.sidedist.x - caster.delta.x;
 	else
-		caster.wallDist = caster.sidedist.y - caster.delta.y;
+		caster.walldist = caster.sidedist.y - caster.delta.y;
 	return (caster);
-}
-
-void drawline(t_rayCast caster, int start, int end, t_data data)
-{
-	int y;
-
-	y = 0;
-	while (y < SCREEN_HEIGHT)
-	{
-		if (y < start)			
-			ft_pixel(&data.screen_img, caster.x, y, 0x0000DD);
-			
-				
-		else if (y > end)
-			ft_pixel(&data.screen_img, caster.x, y, 0xC19A6B);
-		else
-		{
-			if (caster.side == 0)
-				ft_pixel(&data.screen_img, caster.x, y, 0xFF0000);
-			else if (caster.side == 1)
-				ft_pixel(&data.screen_img, caster.x, y, 0x00FF00);
-			else if (caster.side == 2)
-				ft_pixel(&data.screen_img, caster.x, y, 0x880000);
-			else
-				ft_pixel(&data.screen_img, caster.x, y, 0x008800);
-		}
-		y++;
-	}
-}
-
-void	draw(t_rayCast caster, t_data data)
-{
-	int	height;
-	int	start;
-	int end;
-
-	height = (int)(SCREEN_HEIGHT / caster.wallDist);
-
-	start = fmax(SCREEN_HEIGHT / 2 - (height / 2), 0);
-	end = fmin(SCREEN_HEIGHT / 2 + (height / 2), SCREEN_HEIGHT);
-	drawline(caster, start, end, data);
 }
 
 void	cast_angles(t_data data)
@@ -117,14 +79,20 @@ void	cast_angles(t_data data)
 	t_rayCast	caster;
 
 	caster.x = 0;
-	while (caster.x < SCREEN_WIDTH)
+	while (caster.x < SCREEN_W)
 	{
 		caster.hit = 0;
-		x_cam = ((2 * caster.x) / (double)SCREEN_WIDTH) -1;
+		x_cam = ((2 * caster.x) / (double)SCREEN_W) - 1;
 		caster.ray.x = data.dir.x + data.cam.x * x_cam;
 		caster.ray.y = data.dir.y + data.cam.y * x_cam;
-		caster.delta.x = (caster.ray.x == 0) ? 1e30 : fabs(1 / caster.ray.x);
-		caster.delta.y = (caster.ray.y == 0) ? 1e30 : fabs(1 / caster.ray.y);
+		if (0 == caster.ray.x)
+			caster.delta.x = 1e30;
+		else
+			caster.delta.x = fabs(1 / caster.ray.x);
+		if (0 == caster.ray.y)
+			caster.delta.y = 1e30;
+		else
+			caster.delta.y = fabs(1 / caster.ray.y);
 		caster.case_x = (int)(data.pos.x);
 		caster.case_y = (int)(data.pos.y);
 		caster = first_step(caster, data);
@@ -133,5 +101,3 @@ void	cast_angles(t_data data)
 		caster.x++;
 	}	
 }
-
-
