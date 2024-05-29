@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:56:53 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/28 16:38:25 by nrea             ###   ########.fr       */
+/*   Updated: 2024/05/29 14:23:59 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,25 @@ typedef struct s_img
 	int		bpp;
 	int		line_len;
 	int		endian;
-	int		width;
-	int		height;
 }	t_img;
 
+typedef struct s_tex
+{
+	t_img	img;
+	int		width;
+	int		height;
+	char	*path;
+}	t_tex;
 typedef struct s_data
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
 	t_img		screen_img;
 
-	t_img		N_img;
-	t_img		S_img;
-	t_img		E_img;
-	t_img		W_img;
+	t_tex		n_img;
+	t_tex		w_img;
+	t_tex		s_img;
+	t_tex		e_img;
 
 	int			f_color;
 	int			c_color;
@@ -65,6 +70,8 @@ typedef struct s_data
 	t_vector2d	dir;
 	t_vector2d	cam;
 
+	int			map_w;
+	int			map_h;
 	int			**map;
 }	t_data;
 
@@ -106,10 +113,13 @@ void		ft_end_safe(t_data *data);
 #define	ERR_INTERNAL	3
 #define	ERR_COLOR	4
 #define	ERR_TEX	5
+#define	ERR_CHAR	6
+#define	ERR_INVALID_MAP	7
 
-#define	ERROR_LIST	"ok;Extensions must be .cub;File opening:;\
-					An internal error has occured;Invalid color formatting;\
-					Texture loading issue"
+#define	ERROR_LIST	"ok;Extensions must be .cub;Scene:;\
+					An internal error has occured;Invalid color;\
+					parsing texture path issue;Invalid character found\
+					 at line start;Invalid map character"
 typedef struct	s_line
 {
 	char			*content;
