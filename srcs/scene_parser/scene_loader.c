@@ -6,27 +6,11 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:37:36 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/30 13:50:17 by nrea             ###   ########.fr       */
+/*   Updated: 2024/05/30 15:16:27 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
-
-
-/*
-[]	Verifier l'extension du fichier -->ER_BAD_EXTENSION
-[]	ouvrir le fichier  --> ER_OPEN_FILE
-[]	lire le fichier ligne par ligne -> liste chainee (remplacer les \n par \0)
-[]	chercher les identifiants remplir les donnees
- - verification ouverture et creation des textures
- - verification des valeurs de couleurs
-Si on detecte un [espace/0/1/N/W/S] -> la carte debute
-- On determine les dimensions de la carte
- - remplissage de la carte -> si autre caractere que [espace/0/1/N/W/S] ou chaine vide ou error
- - si pas entouree de murs --> error
- - si pos personnage pas initialisee ou initialisee deux fois--> error
-*/
-
 
 int	append_line(t_line **head, char	*content)
 {
@@ -65,7 +49,7 @@ void	free_scene(t_line **scene)
 	cur = NULL;
 	next = NULL;
 	if (!scene || !*scene)
-		return;
+		return ;
 	cur = *scene;
 	while (cur)
 	{
@@ -78,7 +62,7 @@ void	free_scene(t_line **scene)
 }
 
 /*replace \n char with \0*/
-char *replace_eol(char *s)
+char	*replace_eol(char *s)
 {
 	int	i;
 

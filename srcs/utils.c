@@ -6,22 +6,11 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 11:55:45 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/28 15:37:11 by nrea             ###   ########.fr       */
+/*   Updated: 2024/05/30 15:33:17 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
-
-/*Compute the absolute differnce between two points in x and y axis
-not very clear thank you the norm*/
-t_vector2d	ft_compute_abs_diff(t_vector2d p0, t_vector2d p1)
-{
-	t_vector2d	d;
-
-	d.x = ft_abs_int(p1.x - p0.x);
-	d.y = ft_abs_int(p1.y - p0.y);
-	return (d);
-}
 
 /*Returns the nb of occurence of a NULL terminated splitted array*/
 int	ft_split_size(char **splitted)
@@ -36,7 +25,6 @@ int	ft_split_size(char **splitted)
 	return (size);
 }
 
-/*Free the 2D arry grid*/
 void	ft_free_split(char **split)
 {
 	int	i;
@@ -48,4 +36,19 @@ void	ft_free_split(char **split)
 		i++;
 	}
 	free(split);
+}
+int	free_map(int **map, int map_h)
+{
+	int	i;
+
+	if (!map)
+		return (0);
+	i = 0;
+	while (i < map_h)
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
+	return (0);
 }

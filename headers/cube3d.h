@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:56:53 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/30 14:19:41 by nrea             ###   ########.fr       */
+/*   Updated: 2024/05/30 15:59:54 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,35 @@
 # define DEFAULT_SOUTH_PATH "default_south_path"// A remplace par image par defaut
 # define DEFAULT_EAST_PATH "default_east_path"// A remplace par image par defaut
 # define DEFAULT_WEST_PATH "default_west_path"// A remplace par image par defaut
+#define	SUCCESS	0
+#define	ERR_INVALID_EXTENSION	1
+#define	ERR_OPEN	2
+#define	ERR_INTERNAL	3
+#define	ERR_COLOR	4
+#define	ERR_TEX	5
+#define	ERR_CHAR	6
+#define	ERR_EMPTY	7
+#define	ERR_POS_ALREADY_SET	8
+#define	ERR_POS_NOT_SET	9
+#define	ERR_MAP_NOT_CLOSED	10
+#define	ERR_MAP_DIMENSIONS	11
+#define	ERR_NO_MAP	12
+#define	ERR_USAGE	13
 
+#define	ERROR_LIST	"SUCCESS !;\
+Extensions must be .cub;\
+Scene:;\
+An internal error has occured;\
+Invalid color;\
+parsing texture path issue;\
+Invalid character found at line start;\
+Invalid map character or empty line in map definition;\
+The position can only be set once;\
+The starting position and direction must be set;\
+The map is not closed;\
+The map must be at least 3x3;\
+Dude... You forgot to put a map;\
+Usage: ./cub3D [path_to_scene]"
 
 
 
@@ -106,45 +134,15 @@ void		ft_pixel(t_img *screen_img, int x, int y, int color);
 /* srcs/utils.c*/
 void		ft_free_split(char **split);
 int			ft_split_size(char **splitted);
-t_vector2d	ft_compute_abs_diff(t_vector2d p0, t_vector2d p1);
+int			free_map(int **map, int map_h);
+
+
 /*srcs/win_utils.c*/
 void		ft_print_cmd(void);
 int			ft_destroy_window(t_data *data);
 void		ft_end_safe(t_data *data);
 #endif
 
-
-///PARSING
-
-#define	SUCCESS	0
-#define	ERR_INVALID_EXTENSION	1
-#define	ERR_OPEN	2
-#define	ERR_INTERNAL	3
-#define	ERR_COLOR	4
-#define	ERR_TEX	5
-#define	ERR_CHAR	6
-#define	ERR_EMPTY	7
-#define	ERR_POS_ALREADY_SET	8
-#define	ERR_POS_NOT_SET	9
-#define	ERR_MAP_NOT_CLOSED	10
-#define	ERR_MAP_DIMENSIONS	11
-#define	ERR_NO_MAP	12
-#define	ERR_USAGE	13
-
-#define	ERROR_LIST	"SUCCESS !;\
-Extensions must be .cub;\
-Scene:;\
-An internal error has occured;\
-Invalid color;\
-parsing texture path issue;\
-Invalid character found at line start;\
-Invalid map character or empty line in map definition;\
-The position can only be set once;\
-The starting position and direction must be set;\
-The map is not closed;\
-The map must be at least 3x3;\
-Dude... You forgot to put a map;\
-Usage: ./cub3D [path_to_scene]"
 typedef struct	s_line
 {
 	char			*content;
@@ -152,7 +150,27 @@ typedef struct	s_line
 }	t_line;
 
 /*srcs/parsing_utils.c*/
-int		ft_check_extension(char *s);
+int	ft_check_extension(char *s);
+int	isinset(char c, char *set);
+int	is_all_digits(char *s);
+int	check_if_all_digits(char *s1, char *s2, char *s3);
+
+
+/*srcs/scene_parser/map_closing.c*/
+int	is_map_closed(t_data *data);
+
+/*srcs/scene_parser/populate_map.c*/
+int	populate_map(t_line *scene, t_data *data);
+
+/*srcs/scene_parser/set_text_and_col.c*/
+int	get_color_info(int	*color, char *s);
+int	get_texture_path(char *content, char **path);
+
+
+/*srcs/scene_parser/map_dimensions.c*/
+int	find_map_dimensions(t_line *scene, int *w, int *h);
+
+
 int		load_scene(char *file_path, t_line **scene);
 void	free_scene(t_line **scene);
 int		error_handler(int error_code);
