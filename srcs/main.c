@@ -6,7 +6,7 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:49:18 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/29 13:55:27 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/30 11:57:38 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 
+
 	(void)argc;
 	(void)argv;
 	data.mlx_ptr = mlx_init();
@@ -93,14 +94,14 @@ int	main(int argc, char **argv)
 		ft_exit_mlx_window(&data);
 	if (!ft_set_img(&data))
 		ft_destroy_window(&data);
-
+		
 	data.pos.x = 12;
 	data.pos.y = 12;
 	data.dir.x = -1;
 	data.dir.y = 0;
 	data.cam.x = 0;
 	data.cam.y = 0.66;
-		int worldMap[24][24]=
+	int worldMap[24][24]=
 {
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -132,6 +133,7 @@ int	main(int argc, char **argv)
 		for (int x = 0; x < 24; x++)
 			data.map[x][y] = worldMap[x][y];
 	}
+	ft_set_walls(&data);
 	ft_set_hooks(&data);
 	ft_print_cmd();
 	mlx_loop(data.mlx_ptr);

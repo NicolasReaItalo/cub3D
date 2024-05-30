@@ -6,46 +6,95 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:36:26 by qgiraux           #+#    #+#             */
-/*   Updated: 2024/05/29 13:38:31 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/30 12:00:35 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-static void	drawline(t_rayCast caster, int start, int end, t_data data)
+static void	draw_north(t_rayCast caster, t_data data, t_draw_p p)
 {
-	int	y;
+	int	y_tex;
+	int	tex_pixel_pos;
+	int	img_pixel_pos;
+	int	i;
 
-	y = 0;
-	while (y < SCREEN_H)
-	{
-		if (y < start)
-			ft_pixel(&data.screen_img, caster.x, y, 0x0000DD);
-		else if (y > end)
-			ft_pixel(&data.screen_img, caster.x, y, 0xC19A6B);
-		else
-		{
-			if (caster.side == 0)
-				ft_pixel(&data.screen_img, caster.x, y, 0xFF0000);
-			else if (caster.side == 1)
-				ft_pixel(&data.screen_img, caster.x, y, 0x00FF00);
-			else if (caster.side == 2)
-				ft_pixel(&data.screen_img, caster.x, y, 0x880000);
-			else
-				ft_pixel(&data.screen_img, caster.x, y, 0x008800);
-		}
-		y++;
-	}
+	y_tex = (int)(((double)(p.y - p.start) / (double)(p.end - p.start)) * data.n_img.height);
+	tex_pixel_pos = (y_tex * data.n_img.img.line_len)
+		+ (p.texX * (data.n_img.img.bpp >> 3));
+	img_pixel_pos = (p.y * data.screen_img.line_len)
+		+ (caster.x * data.screen_img.bpp >> 3);
+	i = 0;
+	while (i++ < 8)
+		data.screen_img.addr[img_pixel_pos + i]
+			= data.n_img.img.addr[tex_pixel_pos + i];
 }
 
-void	draw(t_rayCast caster, t_data data)
+static void	draw_south(t_rayCast caster, t_data data, t_draw_p p)
 {
-	int	height;
-	int	start;
-	int	end;
+	int	y_tex;
+	int	tex_pixel_pos;
+	int	img_pixel_pos;
+	int	i;
 
-	height = (int)(SCREEN_H / caster.walldist);
-	start = fmax(SCREEN_H / 2 - (height / 2), 0);
-	end = fmin(SCREEN_H / 2 + (height / 2), SCREEN_H);
-	drawline(caster, start, end, data);
+	y_tex = (int)(((double)(p.y - p.start) / (double)(p.end - p.start))
+			* data.s_img.height);
+	tex_pixel_pos = (y_tex * data.s_img.img.line_len)
+		+ (p.texX * (data.s_img.img.bpp >> 3));
+	img_pixel_pos = (p.y * data.screen_img.line_len)
+		+ (caster.x * data.screen_img.bpp >> 3);
+	i = 0;
+	while (i++ < 8)
+		data.screen_img.addr[img_pixel_pos + i]
+			= data.s_img.img.addr[tex_pixel_pos + i];
+}
+
+static void	draw_east(t_rayCast caster, t_data data, t_draw_p p)
+{
+	int	y_tex;
+	int	tex_pixel_pos;
+	int	img_pixel_pos;
+	int	i;
+
+	y_tex = (int)(((double)(p.y - p.start) / (double)(p.end - p.start))
+			* data.e_img.height);
+	tex_pixel_pos = (y_tex * data.e_img.img.line_len)
+		+ (p.texX * (data.e_img.img.bpp >> 3));
+	img_pixel_pos = (p.y * data.screen_img.line_len)
+		+ (caster.x * data.screen_img.bpp >> 3);
+	i = 0;
+	while (i++ < 8)
+		data.screen_img.addr[img_pixel_pos + i]
+			= data.e_img.img.addr[tex_pixel_pos + i];
+}
+
+static void	draw_west(t_rayCast caster, t_data data, t_draw_p p)
+{
+	int	y_tex;
+	int	tex_pixel_pos;
+	int	img_pixel_pos;
+	int	i;
+
+	y_tex = (int)(((double)(p.y - p.start) / (double)(p.end - p.start))
+			* data.w_img.height);
+	tex_pixel_pos = (y_tex * data.w_img.img.line_len)
+		+ (p.texX * (data.w_img.img.bpp >> 3));
+	img_pixel_pos = (p.y * data.screen_img.line_len)
+		+ (caster.x * data.screen_img.bpp >> 3);
+	i = 0;
+	while (i++ < 8)
+		data.screen_img.addr[img_pixel_pos + i]
+			= data.w_img.img.addr[tex_pixel_pos + i];
+}
+
+void	draw_dispatch(t_rayCast caster, t_data data, t_draw_p p)
+{
+	if (caster.side == 0)
+		draw_north(caster, data, p);
+	else if (caster.side == 1)
+		draw_south(caster, data, p);
+	else if (caster.side == 2)
+		draw_east(caster, data, p);
+	else
+		draw_west(caster, data, p);
 }

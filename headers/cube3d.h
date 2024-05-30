@@ -6,7 +6,7 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:56:53 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/29 16:10:52 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/30 11:23:22 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,18 @@
 
 # define SCREEN_W 1024
 # define SCREEN_H 768
-# define ALPHA 0.02
-# define SPEED 0.01
-# define STRAFE 0.003
+# define ALPHA 0.06
+# define SPEED 0.02
+# define STRAFE 0.01
 
+
+typedef struct s_draw_p
+{
+	int start;
+	int end;
+	int y;
+	int texX;
+}	t_draw_p;
 typedef struct s_vector2d
 {
 	double	x;
@@ -93,7 +101,7 @@ typedef struct s_rayCast
 	int			hit;
 	int			side;
 	int			x;
-}			t_rayCast;
+}	t_rayCast;
 
 /* srcs/colors.c */
 int			ft_lerp(int c1, int c2, double f);
@@ -127,4 +135,6 @@ void		ft_end_safe(t_data *data);
 
 void		cast_angles(t_data data);
 void		draw(t_rayCast caster, t_data data);
+int			ft_set_walls(t_data *data);
+void		draw_dispatch(t_rayCast caster, t_data data, t_draw_p p);
 #endif

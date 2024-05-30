@@ -32,6 +32,8 @@ SRCS	=	srcs/colors.c\
 			srcs/rayCast_angles.c\
 			srcs/rayCast_draw.c\
 			srcs/movements.c\
+			srcs/set_imgs.c\
+			srcs/rayCast_draw_calculate.c
 #########################################################
 ### DEBUG
 #########################################################

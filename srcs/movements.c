@@ -6,7 +6,7 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:43:23 by qgiraux           #+#    #+#             */
-/*   Updated: 2024/05/29 15:58:15 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/30 10:34:23 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,13 @@ static void	ft_rotate(t_data *data)
 	{
 		data->dir = ft_apply2dmat(data->dir, rotmat);
 		data->cam = ft_apply2dmat(data->cam, rotmat);
+		printf("dir x = %f | dir y = %f\n", data->dir.x, data->dir.y);
 	}
 	if (data->keypress[5] == 1)
 	{
 		data->dir = ft_apply2dmat(data->dir, negrotmat);
 		data->cam = ft_apply2dmat(data->cam, negrotmat);
+		printf("dir x = %f | dir y = %f\n", data->dir.x, data->dir.y);
 	}
 }
 
