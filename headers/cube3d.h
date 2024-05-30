@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:56:53 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/30 12:21:52 by nrea             ###   ########.fr       */
+/*   Updated: 2024/05/30 14:19:41 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ void		ft_end_safe(t_data *data);
 #define	ERR_MAP_NOT_CLOSED	10
 #define	ERR_MAP_DIMENSIONS	11
 #define	ERR_NO_MAP	12
+#define	ERR_USAGE	13
 
 #define	ERROR_LIST	"SUCCESS !;\
 Extensions must be .cub;\
@@ -142,7 +143,8 @@ The position can only be set once;\
 The starting position and direction must be set;\
 The map is not closed;\
 The map must be at least 3x3;\
-Dude... You forgot to put a map;;"
+Dude... You forgot to put a map;\
+Usage: ./cub3D [path_to_scene]"
 typedef struct	s_line
 {
 	char			*content;

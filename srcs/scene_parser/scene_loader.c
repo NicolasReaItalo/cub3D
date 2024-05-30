@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:37:36 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/29 12:12:22 by nrea             ###   ########.fr       */
+/*   Updated: 2024/05/30 13:50:17 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,17 +100,17 @@ int	load_scene(char *file_path, t_line **scene)
 	*scene = NULL;
 	line = NULL;
 	if (!file_path || !ft_check_extension(file_path))
-		return (error_handler(ERR_INVALID_EXTENSION));
+		return (ERR_INVALID_EXTENSION);
 	file = open(file_path, O_RDONLY);
 	if (file == -1)
-		return (error_handler(ERR_OPEN));
+		return (ERR_OPEN);
 	line = get_next_line(file);
 	while (line)
 	{
 		if (append_line(scene, replace_eol(line)))
 		{
 			free_scene(scene);
-			return (error_handler(ERR_INTERNAL));
+			return (ERR_INTERNAL);
 		}
 		free(line);
 		line = NULL;

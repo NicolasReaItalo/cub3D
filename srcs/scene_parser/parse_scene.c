@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:26:14 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/30 13:45:30 by nrea             ###   ########.fr       */
+/*   Updated: 2024/05/30 14:17:56 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,6 @@ int	allocate_map(t_data *data)
 	{
 
 		data->map[i] = ft_calloc(data->map_w, sizeof(int));
-		// data->map[i] = malloc(data->map_w * sizeof(int));
 		if (!data->map[i])
 			return (free_map(data->map, i), ERR_INTERNAL);
 		i++;
@@ -459,11 +458,11 @@ int	parse_scene(t_line **scene, t_data *data)
 			if (!match_found)
 				ret_code = look_for_col(s->content, data, &match_found);
 			if (!match_found && isinset(s->content[0]," 01NSWE"))
-				return (error_handler(parse_map(s, data)));
+				return (parse_map(s, data));
 			else if (!match_found)
 				ret_code = ERR_CHAR;
 			if (ret_code)
-				return (error_handler(ret_code));
+				return (ret_code);
 		}
 		s = s->next;
 	}
