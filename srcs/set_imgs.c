@@ -6,7 +6,7 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:45:08 by qgiraux           #+#    #+#             */
-/*   Updated: 2024/05/30 11:42:18 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/30 14:07:21 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_set_nimg(t_data *data)
 {
 	data->n_img.img.mlx_img = mlx_xpm_file_to_image(data->mlx_ptr,
-			"textures/wallS.xpm", &data->n_img.width, &data->n_img.height);
+			"textures/bluestone.xpm", &data->n_img.width, &data->n_img.height);
 	if (!data->n_img.img.mlx_img)
 		return (0);
 	data->n_img.img.addr = mlx_get_data_addr(data->n_img.img.mlx_img,

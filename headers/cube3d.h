@@ -6,7 +6,7 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:56:53 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/30 11:23:22 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/30 14:53:25 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,19 @@
 # define SPEED 0.02
 # define STRAFE 0.01
 
-
 typedef struct s_draw_p
 {
-	int start;
-	int end;
-	int y;
-	int texX;
+	int		start;
+	int		end;
+	int		y;
+	int		texn;
+	int		texs;
+	int		texe;
+	int		texw;
+	double	nstep;
+	double	sstep;
+	double	estep;
+	double	wstep;
 }	t_draw_p;
 typedef struct s_vector2d
 {
@@ -101,6 +107,7 @@ typedef struct s_rayCast
 	int			hit;
 	int			side;
 	int			x;
+	double		x_shift;
 }	t_rayCast;
 
 /* srcs/colors.c */
