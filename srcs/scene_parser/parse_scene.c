@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:26:14 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/29 17:28:19 by nrea             ###   ########.fr       */
+/*   Updated: 2024/05/30 13:45:30 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	get_color_info(int	*color, char *s)
 /*get the path to the texture form the content*/
 int	get_texture_path(char *content, char **path)
 {
+	free(*path);
 	content += 2;
 	if (!*content)
 		return (ERR_TEX);
@@ -96,7 +97,7 @@ int isinset(char c, char *set)
 }
 
 /*returns the retcode*/
-int	look_for_tex(char *content, t_data *data ,int *match_found)
+static int	look_for_tex(char *content, t_data *data ,int *match_found)
 {
 	if (!ft_strncmp(content, "NO", 2))
 	{
@@ -121,7 +122,7 @@ int	look_for_tex(char *content, t_data *data ,int *match_found)
 	return (0);
 }
 
-int	look_for_col(char *content, t_data *data ,int *match_found)
+static int	look_for_col(char *content, t_data *data ,int *match_found)
 {
 	if (content[0] == 'F')
 	{
@@ -152,7 +153,7 @@ static int	find_longest_row(t_line *scene)
 		while (s->content[i])
 		{
 			if (!isinset(s->content[i], " 01NSWE"))
-				return (-1);
+				return (-2);
 			i++;
 		}
 		if (i > max)
@@ -168,7 +169,9 @@ int find_map_dimensions(t_line *scene, int *w, int *h)
 	t_line	*s;
 
 	*w = find_longest_row(scene);
-	if (*w == -1) /// voir qd on teste que la map doit faire 3x3 min
+	if (*w == -1)
+		return (ERR_EMPTY);
+	else if (*w == -2)
 		return (ERR_CHAR);
 	*h = 0;
 	s = scene;
@@ -186,6 +189,8 @@ int	free_map(int **map, int map_h)
 {
 	int i;
 
+	if (!map)
+		return (0);
 	i = 0;
 	while (i < map_h)
 	{
@@ -193,7 +198,6 @@ int	free_map(int **map, int map_h)
 		i++;
 	}
 	free (map);
-	*map = NULL;
 	return (0);
 }
 
@@ -207,7 +211,9 @@ int	allocate_map(t_data *data)
 		return (ERR_INTERNAL);
 	while (i < data->map_h)
 	{
-		data->map[i] = malloc(data->map_w * sizeof(int));
+
+		data->map[i] = ft_calloc(data->map_w, sizeof(int));
+		// data->map[i] = malloc(data->map_w * sizeof(int));
 		if (!data->map[i])
 			return (free_map(data->map, i), ERR_INTERNAL);
 		i++;
@@ -256,7 +262,9 @@ int populate_line(t_line *s, t_data *data, int h)
 	content = s->content;
 	while (w < data->map_w)
 	{
-		if (!*content || *content == ' ' || *content == '0')
+		if (!*content || *content == ' ')
+			data->map[h][w] = 9; /////////////////////////////////
+		else if (*content == '0')
 			data->map[h][w] = 0;
 		else if (*content == '1')
 			data->map[h][w] = 1;
@@ -286,6 +294,8 @@ int	populate_map(t_line *scene, t_data *data)
 	ret = 0;
 	while (h < data->map_h)
 	{
+		if (!ft_strlen(s->content))
+			return (ERR_EMPTY);
 		ret = populate_line(s, data, h);
 		if (ret)
 			return (ret);
@@ -308,9 +318,13 @@ static int	is_col_topdown_closed(t_data *data, int col)
 	{
 		if (data->map[row][col] == 1)
 			wall_encountered = 1;
-		else
+		else if (data->map[row][col] == 0)
+		{
 			if (!wall_encountered)
 				return (0);
+		}
+		else if (data->map[row][col] == 9)
+			wall_encountered = 0;
 		row++;
 	}
 	return (1);
@@ -326,9 +340,13 @@ static int	is_col_bottomup_closed(t_data *data, int col)
 	{
 		if (data->map[row][col] == 1)
 			wall_encountered = 1;
-		else
+		else if (data->map[row][col] == 0)
+		{
 			if (!wall_encountered)
 				return (0);
+		}
+		else if (data->map[row][col] == 9)
+			wall_encountered = 0;
 		row--;
 	}
 	return (1);
@@ -346,12 +364,16 @@ static int	is_row_left_right_closed(t_data *data, int row)
 	{
 		if (data->map[row][col] == 1)
 			wall_encountered = 1;
-		else
+		else if (data->map[row][col] == 0)
+		{
 			if (!wall_encountered)
 				return (0);
+		}
+		else if (data->map[row][col] == 9)
+			wall_encountered = 0;
 		col++;
 	}
-	return (SUCCESS);
+	return (1);
 }
 
 static int	is_row_right_left_closed(t_data *data, int row)
@@ -365,9 +387,13 @@ static int	is_row_right_left_closed(t_data *data, int row)
 	{
 		if (data->map[row][col] == 1)
 			wall_encountered = 1;
-		else
+		else if (data->map[row][col] == 0)
+		{
 			if (!wall_encountered)
 				return (0);
+		}
+		else if (data->map[row][col] == 9)
+			wall_encountered = 0;
 		col--;
 	}
 	return (1);
@@ -390,7 +416,7 @@ int	is_map_closed(t_data *data)
 	{
 		if (!is_col_topdown_closed(data, col) || !is_col_bottomup_closed(data, col))
 			return (ERR_MAP_NOT_CLOSED);
-		row++;
+		col++;
 	}
 	return (SUCCESS);
 }
@@ -411,17 +437,10 @@ int parse_map(t_line *scene, t_data *data)
 	retcode = populate_map(scene, data);
 	if (retcode)
 		return (retcode);
-	if (!is_map_closed(data))
+	if (is_map_closed(data))
 		return (ERR_MAP_NOT_CLOSED);
 	return (SUCCESS);
 }
-
-/*
-TODO
-penser a essayer sans map ou une map de 1 par 1
-
-*/
-
 
 int	parse_scene(t_line **scene, t_data *data)
 {

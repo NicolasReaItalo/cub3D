@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:56:53 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/29 17:15:53 by nrea             ###   ########.fr       */
+/*   Updated: 2024/05/30 12:21:52 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,16 @@
 
 # define SCREEN_WIDTH 800
 # define SCREEN_HEIGHT 600
+# define DEFAULT_CEILING 0x0000FF
+# define DEFAULT_FLOOR 0xCCCCCC
+# define DEFAULT_NORTH_PATH "default_north_path"// A remplace par image par defaut
+# define DEFAULT_SOUTH_PATH "default_south_path"// A remplace par image par defaut
+# define DEFAULT_EAST_PATH "default_east_path"// A remplace par image par defaut
+# define DEFAULT_WEST_PATH "default_west_path"// A remplace par image par defaut
+
+
+
+
 
 typedef struct s_vector2d
 {
@@ -113,23 +123,26 @@ void		ft_end_safe(t_data *data);
 #define	ERR_COLOR	4
 #define	ERR_TEX	5
 #define	ERR_CHAR	6
-#define	ERR_POS_ALREADY_SET	7
-#define	ERR_POS_NOT_SET	8
-#define	ERR_MAP_NOT_CLOSED	9
-#define	ERR_MAP_DIMENSIONS	10
+#define	ERR_EMPTY	7
+#define	ERR_POS_ALREADY_SET	8
+#define	ERR_POS_NOT_SET	9
+#define	ERR_MAP_NOT_CLOSED	10
+#define	ERR_MAP_DIMENSIONS	11
+#define	ERR_NO_MAP	12
 
 #define	ERROR_LIST	"SUCCESS !;\
 Extensions must be .cub;\
-Scene:An internal error has occured;\
+Scene:;\
+An internal error has occured;\
 Invalid color;\
 parsing texture path issue;\
 Invalid character found at line start;\
-Invalid map character or empty line;\
+Invalid map character or empty line in map definition;\
 The position can only be set once;\
 The starting position and direction must be set;\
 The map is not closed;\
 The map must be at least 3x3;\
-;;"
+Dude... You forgot to put a map;;"
 typedef struct	s_line
 {
 	char			*content;
