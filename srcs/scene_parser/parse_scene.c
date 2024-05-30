@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:26:14 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/30 14:17:56 by nrea             ###   ########.fr       */
+/*   Updated: 2024/05/30 14:42:25 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_split_size(char **splitted)
 	return (size);
 }
 
-int is_all_digits(char *s)
+int	is_all_digits(char *s)
 {
 	while (*s)
 	{
@@ -53,17 +53,17 @@ int	get_color_info(int	*color, char *s)
 	if (!splitted)
 		return (ERR_INTERNAL);
 	if (ft_split_size(splitted) != 3)
-		return(ft_free_split(splitted),ERR_COLOR);
-	if (!is_all_digits(splitted[0])||!is_all_digits(splitted[1])||!is_all_digits(splitted[2]))
-		return(ft_free_split(splitted),ERR_COLOR);
+		return (ft_free_split(splitted), ERR_COLOR);
+	if (!is_all_digits(splitted[0]) || !is_all_digits(splitted[1]) || !is_all_digits(splitted[2]))
+		return (ft_free_split(splitted), ERR_COLOR);
 	r = ft_atoi(splitted[0]);
 	g = ft_atoi(splitted[1]);
 	b = ft_atoi(splitted[2]);
 	if (r > 255 || g > 255 || b > 255)
-		return(ft_free_split(splitted),ERR_COLOR);
-	*color = r <<16| g <<8| b;
+		return (ft_free_split(splitted), ERR_COLOR);
+	*color = r << 16 | g << 8 | b;
 	ft_free_split(splitted);
-	return(SUCCESS);
+	return (SUCCESS);
 }
 
 /*get the path to the texture form the content*/
@@ -73,7 +73,7 @@ int	get_texture_path(char *content, char **path)
 	content += 2;
 	if (!*content)
 		return (ERR_TEX);
-	while(*content == ' ')
+	while (*content == ' ')
 		content++;
 	*path = ft_strdup(content);
 	if (!*path)
@@ -81,8 +81,7 @@ int	get_texture_path(char *content, char **path)
 	return (SUCCESS);
 }
 
-
-int isinset(char c, char *set)
+int	isinset(char c, char *set)
 {
 	int	i;
 
@@ -97,51 +96,51 @@ int isinset(char c, char *set)
 }
 
 /*returns the retcode*/
-static int	look_for_tex(char *content, t_data *data ,int *match_found)
+static int	look_for_tex(char *content, t_data *data, int *match_found)
 {
 	if (!ft_strncmp(content, "NO", 2))
 	{
 		*match_found = 1;
-		return(get_texture_path(content, &data->n_img.path));
+		return (get_texture_path(content, &data->n_img.path));
 	}
 	else if (!ft_strncmp(content, "SO", 2))
 	{
 		*match_found = 1;
-		return(get_texture_path(content, &data->s_img.path));
+		return (get_texture_path(content, &data->s_img.path));
 	}
 	else if (!ft_strncmp(content, "WE", 2))
 	{
 		*match_found = 1;
-		return(get_texture_path(content, &data->w_img.path));
+		return (get_texture_path(content, &data->w_img.path));
 	}
 	else if (!ft_strncmp(content, "EA", 2))
 	{
 		*match_found = 1;
-		return(get_texture_path(content, &data->e_img.path));
+		return (get_texture_path(content, &data->e_img.path));
 	}
 	return (0);
 }
 
-static int	look_for_col(char *content, t_data *data ,int *match_found)
+static int	look_for_col(char *content, t_data *data, int *match_found)
 {
 	if (content[0] == 'F')
 	{
 		*match_found = 1;
-		return(get_color_info(&data->f_color ,content));
+		return (get_color_info(&data->f_color, content));
 	}
 	else if (content[0] == 'C')
 	{
 		*match_found = 1;
-		return (get_color_info(&data->c_color ,content));
+		return (get_color_info(&data->c_color, content));
 	}
 	return (0);
 }
 
 static int	find_longest_row(t_line *scene)
 {
-	t_line *s;
-	int max;
-	int i;
+	t_line	*s;
+	int		max;
+	int		i;
 
 	max = 0;
 	s = scene;
@@ -164,7 +163,7 @@ static int	find_longest_row(t_line *scene)
 }
 
 /*parses the scene to caculate the dimensions of the grid array*/
-int find_map_dimensions(t_line *scene, int *w, int *h)
+int	find_map_dimensions(t_line *scene, int *w, int *h)
 {
 	t_line	*s;
 
@@ -187,7 +186,7 @@ int find_map_dimensions(t_line *scene, int *w, int *h)
 
 int	free_map(int **map, int map_h)
 {
-	int i;
+	int	i;
 
 	if (!map)
 		return (0);
@@ -197,7 +196,7 @@ int	free_map(int **map, int map_h)
 		free(map[i]);
 		i++;
 	}
-	free (map);
+	free(map);
 	return (0);
 }
 
@@ -211,7 +210,6 @@ int	allocate_map(t_data *data)
 		return (ERR_INTERNAL);
 	while (i < data->map_h)
 	{
-
 		data->map[i] = ft_calloc(data->map_w, sizeof(int));
 		if (!data->map[i])
 			return (free_map(data->map, i), ERR_INTERNAL);
@@ -220,8 +218,7 @@ int	allocate_map(t_data *data)
 	return (SUCCESS);
 }
 
-
-int	get_posdir(t_data *data, char c,int w, int h)
+int	get_posdir(t_data *data, char c, int w, int h)
 {
 	if (data->pos.y >= 0 || data->pos.x >= 0)
 		return (ERR_POS_ALREADY_SET);
@@ -250,7 +247,7 @@ int	get_posdir(t_data *data, char c,int w, int h)
 	return (SUCCESS);
 }
 
-int populate_line(t_line *s, t_data *data, int h)
+int	populate_line(t_line *s, t_data *data, int h)
 {
 	int		w;
 	char	*content;
@@ -262,7 +259,7 @@ int populate_line(t_line *s, t_data *data, int h)
 	while (w < data->map_w)
 	{
 		if (!*content || *content == ' ')
-			data->map[h][w] = 9; /////////////////////////////////
+			data->map[h][w] = 9;
 		else if (*content == '0')
 			data->map[h][w] = 0;
 		else if (*content == '1')
@@ -301,7 +298,7 @@ int	populate_map(t_line *scene, t_data *data)
 		h++;
 		s = s->next;
 	}
-	if (data->pos.y < 0|| data->pos.x < 0)
+	if (data->pos.y < 0 || data->pos.x < 0)
 		return (ERR_POS_NOT_SET);
 	return (SUCCESS);
 }
@@ -309,7 +306,7 @@ int	populate_map(t_line *scene, t_data *data)
 static int	is_col_topdown_closed(t_data *data, int col)
 {
 	int	row;
-	int wall_encountered;
+	int	wall_encountered;
 
 	row = 0;
 	wall_encountered = 0;
@@ -328,10 +325,11 @@ static int	is_col_topdown_closed(t_data *data, int col)
 	}
 	return (1);
 }
+
 static int	is_col_bottomup_closed(t_data *data, int col)
 {
 	int	row;
-	int wall_encountered;
+	int	wall_encountered;
 
 	row = data->map_h - 1;
 	wall_encountered = 0;
@@ -351,11 +349,10 @@ static int	is_col_bottomup_closed(t_data *data, int col)
 	return (1);
 }
 
-
 static int	is_row_left_right_closed(t_data *data, int row)
 {
 	int	col;
-	int wall_encountered;
+	int	wall_encountered;
 
 	col = 0;
 	wall_encountered = 0;
@@ -378,11 +375,11 @@ static int	is_row_left_right_closed(t_data *data, int row)
 static int	is_row_right_left_closed(t_data *data, int row)
 {
 	int	col;
-	int wall_encountered;
+	int	wall_encountered;
 
 	col = data->map_w - 1;
 	wall_encountered = 0;
-	while (col >= 0 )
+	while (col >= 0)
 	{
 		if (data->map[row][col] == 1)
 			wall_encountered = 1;
@@ -420,11 +417,9 @@ int	is_map_closed(t_data *data)
 	return (SUCCESS);
 }
 
-
-int parse_map(t_line *scene, t_data *data)
+int	parse_map(t_line *scene, t_data *data)
 {
-	int retcode;
-
+	int	retcode;
 
 	retcode = 0;
 	retcode = find_map_dimensions(scene, &data->map_w, &data->map_h);
@@ -457,7 +452,7 @@ int	parse_scene(t_line **scene, t_data *data)
 			ret_code = look_for_tex(s->content, data, &match_found);
 			if (!match_found)
 				ret_code = look_for_col(s->content, data, &match_found);
-			if (!match_found && isinset(s->content[0]," 01NSWE"))
+			if (!match_found && isinset(s->content[0], " 01NSWE"))
 				return (parse_map(s, data));
 			else if (!match_found)
 				ret_code = ERR_CHAR;
