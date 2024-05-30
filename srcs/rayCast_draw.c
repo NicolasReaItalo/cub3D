@@ -6,13 +6,13 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:36:26 by qgiraux           #+#    #+#             */
-/*   Updated: 2024/05/30 14:57:13 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/30 15:11:46 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-static void	draw_north(t_rayCast caster, t_data data, t_draw_p p)
+static void	_draw_north(t_rayCast caster, t_data data, t_draw_p p)
 {
 	int	y_tex;
 	int	tex_pixel_pos;
@@ -28,7 +28,7 @@ static void	draw_north(t_rayCast caster, t_data data, t_draw_p p)
 			= data.n_img.img.addr[tex_pixel_pos + i];
 }
 
-static void	draw_south(t_rayCast caster, t_data data, t_draw_p p)
+static void	_draw_south(t_rayCast caster, t_data data, t_draw_p p)
 {
 	int	y_tex;
 	int	tex_pixel_pos;
@@ -44,7 +44,7 @@ static void	draw_south(t_rayCast caster, t_data data, t_draw_p p)
 			= data.s_img.img.addr[tex_pixel_pos + i];
 }
 
-static void	draw_east(t_rayCast caster, t_data data, t_draw_p p)
+static void	_draw_east(t_rayCast caster, t_data data, t_draw_p p)
 {
 	int	y_tex;
 	int	tex_pixel_pos;
@@ -61,7 +61,7 @@ static void	draw_east(t_rayCast caster, t_data data, t_draw_p p)
 			= data.e_img.img.addr[tex_pixel_pos + i];
 }
 
-static void	draw_west(t_rayCast caster, t_data data, t_draw_p p)
+static void	_draw_west(t_rayCast caster, t_data data, t_draw_p p)
 {
 	int	y_tex;
 	int	tex_pixel_pos;
@@ -80,11 +80,11 @@ static void	draw_west(t_rayCast caster, t_data data, t_draw_p p)
 void	draw_dispatch(t_rayCast caster, t_data data, t_draw_p p)
 {
 	if (caster.side == 0)
-		draw_north(caster, data, p);
+		_draw_north(caster, data, p);
 	else if (caster.side == 2)
-		draw_south(caster, data, p);
+		_draw_south(caster, data, p);
 	else if (caster.side == 3)
-		draw_east(caster, data, p);
+		_draw_east(caster, data, p);
 	else
-		draw_west(caster, data, p);
+		_draw_west(caster, data, p);
 }

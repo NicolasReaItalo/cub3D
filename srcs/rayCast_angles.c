@@ -6,13 +6,13 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:25:11 by qgiraux           #+#    #+#             */
-/*   Updated: 2024/05/30 14:46:04 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/30 15:14:46 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-static t_rayCast	first_step(t_rayCast caster, t_data data)
+static t_rayCast	_first_step(t_rayCast caster, t_data data)
 {
 	if (caster.ray.x < 0)
 	{
@@ -58,7 +58,7 @@ static t_rayCast	_dist(t_rayCast caster)
 	return (caster);
 }
 
-static t_rayCast	find_wall(t_rayCast caster, t_data data)
+static t_rayCast	_find_wall(t_rayCast caster, t_data data)
 {
 	while (caster.hit == 0)
 	{
@@ -73,7 +73,7 @@ static t_rayCast	find_wall(t_rayCast caster, t_data data)
 	return (caster);
 }
 
-void	cast_angles(t_data data)
+void	ft_cast_angles(t_data data)
 {
 	double		x_cam;
 	t_rayCast	caster;
@@ -95,9 +95,9 @@ void	cast_angles(t_data data)
 			caster.delta.y = fabs(1 / caster.ray.y);
 		caster.case_x = (int)(data.pos.x);
 		caster.case_y = (int)(data.pos.y);
-		caster = first_step(caster, data);
-		caster = find_wall(caster, data);
-		draw(caster, data);
+		caster = _first_step(caster, data);
+		caster = _find_wall(caster, data);
+		ft_calculate(caster, data);
 		caster.x++;
 	}	
 }

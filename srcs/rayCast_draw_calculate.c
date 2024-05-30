@@ -6,7 +6,7 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 11:19:24 by qgiraux           #+#    #+#             */
-/*   Updated: 2024/05/30 14:54:14 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/30 15:16:54 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,19 @@ static t_draw_p	_texx(t_rayCast caster, t_draw_p p, t_data data, double wall_x)
 		p.texe = data.e_img.width - p.texe - 1;
 	if ((caster.side == 1 || caster.side == 3) && caster.ray.y < 0)
 		p.texe = data.e_img.width - p.texe - 1;
+		
 	p.texw = (int)((wall_x - floor(wall_x)) * data.w_img.width);
 	if ((caster.side == 0 || caster.side == 2) && caster.ray.x > 0)
 		p.texw = data.w_img.width - p.texw - 1;
 	if ((caster.side == 1 || caster.side == 3) && caster.ray.y < 0)
 		p.texw = data.w_img.width - p.texw - 1;
+		
 	p.texn = (int)((wall_x - floor(wall_x)) * data.n_img.width);
 	if ((caster.side == 0 || caster.side == 2) && caster.ray.x > 0)
 		p.texn = data.n_img.width - p.texn - 1;
 	if ((caster.side == 1 || caster.side == 3) && caster.ray.y < 0)
 		p.texn = data.n_img.width - p.texn - 1;
+		
 	p.texn *= data.n_img.img.bpp >> 3;
 	p.texs *= data.s_img.img.bpp >> 3;
 	p.texe *= data.e_img.img.bpp >> 3;
@@ -41,7 +44,7 @@ static t_draw_p	_texx(t_rayCast caster, t_draw_p p, t_data data, double wall_x)
 	return (p);
 }
 
-static void	drawline(t_rayCast caster, int start, int end, t_data data)
+static void	_drawline(t_rayCast caster, int start, int end, t_data data)
 {
 	t_draw_p	p;
 	double		wall_x;
@@ -70,7 +73,7 @@ static void	drawline(t_rayCast caster, int start, int end, t_data data)
 	}
 }
 
-void	draw(t_rayCast caster, t_data data)
+void	ft_calculate(t_rayCast caster, t_data data)
 {
 	int	height;
 	int	start;
@@ -80,5 +83,5 @@ void	draw(t_rayCast caster, t_data data)
 	height = (int)(SCREEN_H / caster.walldist);
 	start = (SCREEN_H / 2 - (height / 2));
 	end = (SCREEN_H / 2 + (height / 2));
-	drawline(caster, start, end, data);
+	_drawline(caster, start, end, data);
 }

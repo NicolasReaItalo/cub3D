@@ -6,7 +6,7 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:56:53 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/30 14:53:25 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/30 15:12:41 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,8 @@ void		ft_print_cmd(void);
 int			ft_destroy_window(t_data *data);
 void		ft_end_safe(t_data *data);
 
-void		cast_angles(t_data data);
-void		draw(t_rayCast caster, t_data data);
+void		ft_cast_angles(t_data data);
+void		ft_calculate(t_rayCast caster, t_data data);
 int			ft_set_walls(t_data *data);
 void		draw_dispatch(t_rayCast caster, t_data data, t_draw_p p);
 #endif

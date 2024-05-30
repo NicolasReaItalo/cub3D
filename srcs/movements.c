@@ -6,13 +6,13 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:43:23 by qgiraux           #+#    #+#             */
-/*   Updated: 2024/05/30 10:34:23 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/30 15:24:20 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-static void	ft_rotate(t_data *data)
+static void	_rotate(t_data *data)
 {
 	double	rotmat[2][2];
 	double	negrotmat[2][2];
@@ -29,17 +29,15 @@ static void	ft_rotate(t_data *data)
 	{
 		data->dir = ft_apply2dmat(data->dir, rotmat);
 		data->cam = ft_apply2dmat(data->cam, rotmat);
-		printf("dir x = %f | dir y = %f\n", data->dir.x, data->dir.y);
 	}
 	if (data->keypress[5] == 1)
 	{
 		data->dir = ft_apply2dmat(data->dir, negrotmat);
 		data->cam = ft_apply2dmat(data->cam, negrotmat);
-		printf("dir x = %f | dir y = %f\n", data->dir.x, data->dir.y);
 	}
 }
 
-static void	ft_forward(t_data *data)
+static void	_forward(t_data *data)
 {
 	double	tmpx;
 	double	tmpy;
@@ -66,7 +64,7 @@ static void	ft_forward(t_data *data)
 	}
 }
 
-static void	ft_strafe(t_data *data)
+static void	_strafe(t_data *data)
 {
 	double	tmpx;
 	double	tmpy;
@@ -95,8 +93,12 @@ static void	ft_strafe(t_data *data)
 
 int	ft_keyact(t_data *data)
 {
-	ft_strafe(data);
-	ft_forward(data);
-	ft_rotate(data);
+	_strafe(data);
+	_forward(data);
+	_rotate(data);
+	if (data->keypress[0] || data->keypress[1] || data->keypress[2]
+		|| data->keypress[3] || data->keypress[4] || data->keypress[5])
+		printf("pos = %f|%f   dir = %f|%f\n",
+			data->pos.x, data->pos.x, data->dir.x, data->dir.y);
 	return (0);
 }

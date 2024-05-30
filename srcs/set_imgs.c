@@ -6,16 +6,16 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:45:08 by qgiraux           #+#    #+#             */
-/*   Updated: 2024/05/30 14:07:21 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/30 15:17:06 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-int	ft_set_nimg(t_data *data)
+static int	_set_nimg(t_data *data)
 {
 	data->n_img.img.mlx_img = mlx_xpm_file_to_image(data->mlx_ptr,
-			"textures/bluestone.xpm", &data->n_img.width, &data->n_img.height);
+			"textures/02camino.xpm", &data->n_img.width, &data->n_img.height);
 	if (!data->n_img.img.mlx_img)
 		return (0);
 	data->n_img.img.addr = mlx_get_data_addr(data->n_img.img.mlx_img,
@@ -24,7 +24,7 @@ int	ft_set_nimg(t_data *data)
 	return (1);
 }
 
-int	ft_set_simg(t_data *data)
+static int	_set_simg(t_data *data)
 {
 	data->s_img.img.mlx_img = mlx_xpm_file_to_image(data->mlx_ptr,
 			"textures/02camino.xpm", &data->s_img.width, &data->s_img.height);
@@ -36,7 +36,7 @@ int	ft_set_simg(t_data *data)
 	return (1);
 }
 
-int	ft_set_eimg(t_data *data)
+static int	_set_eimg(t_data *data)
 {
 	data->e_img.img.mlx_img = mlx_xpm_file_to_image(data->mlx_ptr,
 			"textures/mosaic1.xpm", &data->e_img.width, &data->e_img.height);
@@ -48,7 +48,7 @@ int	ft_set_eimg(t_data *data)
 	return (1);
 }
 
-int	ft_set_wimg(t_data *data)
+static int	_set_wimg(t_data *data)
 {
 	data->w_img.img.mlx_img = mlx_xpm_file_to_image(data->mlx_ptr,
 			"textures/wall_256x256_1.xpm", &data->w_img.width,
@@ -63,13 +63,13 @@ int	ft_set_wimg(t_data *data)
 
 int	ft_set_walls(t_data *data)
 {
-	if (!ft_set_nimg(data))
+	if (!_set_nimg(data))
 		return (1);
-	if (!ft_set_simg(data))
+	if (!_set_simg(data))
 		return (1);
-	if (!ft_set_eimg(data))
+	if (!_set_eimg(data))
 		return (1);
-	if (!ft_set_wimg(data))
+	if (!_set_wimg(data))
 		return (1);
 	return (0);
 }
