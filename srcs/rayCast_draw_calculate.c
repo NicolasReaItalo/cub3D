@@ -6,7 +6,7 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 11:19:24 by qgiraux           #+#    #+#             */
-/*   Updated: 2024/05/31 11:38:51 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/31 16:24:46 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ static t_draw_p	_texx(t_rayCast caster, t_draw_p p, t_data data, double wall_x)
 		p.texn = data.n_img.width - p.texn - 1;
 	if ((caster.side == 1 || caster.side == 3) && caster.ray.y < 0)
 		p.texn = data.n_img.width - p.texn - 1;
-	p.texn *= data.n_img.img.bpp >> 3;
-	p.texs *= data.s_img.img.bpp >> 3;
-	p.texe *= data.e_img.img.bpp >> 3;
-	p.texw *= data.w_img.img.bpp >> 3;
+	p.texn *= data.n_img.img.bpp / 8;
+	p.texs *= data.s_img.img.bpp / 8;
+	p.texe *= data.e_img.img.bpp / 8;
+	p.texw *= data.w_img.img.bpp / 8;
 	return (p);
 }
 
@@ -76,7 +76,7 @@ void	ft_calculate(t_rayCast caster, t_data data)
 	int	start;
 	int	end;
 
-	caster.x_shift = caster.x * data.screen_img.bpp >> 3;
+	caster.x_shift = fmax(0, (caster.x - 1)) * data.screen_img.bpp / 8;
 	height = (int)(SCREEN_H / caster.walldist);
 	start = (SCREEN_H / 2 - (height / 2));
 	end = (SCREEN_H / 2 + (height / 2));

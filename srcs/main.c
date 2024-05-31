@@ -6,7 +6,7 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:49:18 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/31 14:27:35 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/31 16:25:04 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ int	ft_render(t_data *data)
 
 void	ft_set_hooks(t_data *data)
 {
+	int	y;
+
+	mlx_mouse_get_pos(data->mlx_ptr, data->win_ptr, &data->mousex, &y);
 	mlx_loop_hook(data->mlx_ptr, &ft_render, data);
 	mlx_hook(data->win_ptr, 17, 1L << 2, &ft_destroy_window, data);
 	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, &ft_keypress, data);

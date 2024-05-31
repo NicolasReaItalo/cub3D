@@ -6,7 +6,7 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 15:47:30 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/31 13:06:43 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/31 16:23:37 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	get_posdir(t_data *data, char c, int w, int h)
 {
 	if (data->pos.y >= 0 || data->pos.x >= 0)
 		return (ERR_POS_ALREADY_SET);
-	data->pos.x = w + 0.5;
-	data->pos.y = h + 0.5;
+	data->pos.y = w + 0.5;
+	data->pos.x = h + 0.5;
 	if (c == 'N')
 	{
 		data->dir.x = -1;

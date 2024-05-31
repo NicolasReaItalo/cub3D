@@ -6,7 +6,7 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:43:23 by qgiraux           #+#    #+#             */
-/*   Updated: 2024/05/31 14:15:29 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/31 16:22:39 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,6 @@ int	ft_keyact(t_data *data)
 	_forward(data);
 	_rotate(data);
 	ft_rotate_by(data);
+	printf(" pos = %f | %f\n", data->pos.x, data->pos.y);
 	return (0);
 }
