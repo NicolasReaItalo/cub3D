@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:56:53 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/30 15:59:54 by nrea             ###   ########.fr       */
+/*   Updated: 2024/05/30 16:11:20 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,12 @@ typedef struct s_data
 	int			**map;
 }	t_data;
 
+typedef struct	s_line
+{
+	char			*content;
+	struct s_line	*next;
+}	t_line;
+
 /* srcs/colors.c */
 int			ft_lerp(int c1, int c2, double f);
 int			rgb_to_int(unsigned char r, unsigned char g, unsigned char b);
@@ -141,38 +147,37 @@ int			free_map(int **map, int map_h);
 void		ft_print_cmd(void);
 int			ft_destroy_window(t_data *data);
 void		ft_end_safe(t_data *data);
-#endif
 
-typedef struct	s_line
-{
-	char			*content;
-	struct s_line	*next;
-}	t_line;
+/*srcs/data_operations.c*/
+void		free_tex_path(t_data *data);
+int			init_data(t_data *data);
+
 
 /*srcs/parsing_utils.c*/
-int	ft_check_extension(char *s);
-int	isinset(char c, char *set);
-int	is_all_digits(char *s);
-int	check_if_all_digits(char *s1, char *s2, char *s3);
+int			ft_check_extension(char *s);
+int			isinset(char c, char *set);
+int			is_all_digits(char *s);
+int			check_if_all_digits(char *s1, char *s2, char *s3);
 
 
 /*srcs/scene_parser/map_closing.c*/
-int	is_map_closed(t_data *data);
+int			is_map_closed(t_data *data);
 
 /*srcs/scene_parser/populate_map.c*/
-int	populate_map(t_line *scene, t_data *data);
+int			populate_map(t_line *scene, t_data *data);
 
 /*srcs/scene_parser/set_text_and_col.c*/
-int	get_color_info(int	*color, char *s);
-int	get_texture_path(char *content, char **path);
+int			get_color_info(int	*color, char *s);
+int			get_texture_path(char *content, char **path);
 
 
 /*srcs/scene_parser/map_dimensions.c*/
-int	find_map_dimensions(t_line *scene, int *w, int *h);
+int			find_map_dimensions(t_line *scene, int *w, int *h);
 
 
-int		load_scene(char *file_path, t_line **scene);
-void	free_scene(t_line **scene);
-int		error_handler(int error_code);
-int		parse_scene(t_line **scene, t_data *data);
-int		free_map(int **map, int map_h);
+int			load_scene(char *file_path, t_line **scene);
+void		free_scene(t_line **scene);
+int			error_handler(int error_code);
+int			parse_scene(t_line **scene, t_data *data);
+int			free_map(int **map, int map_h);
+#endif
