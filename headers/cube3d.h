@@ -6,7 +6,7 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:56:53 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/31 13:13:01 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/31 14:21:21 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@
 # define SCREEN_H 780
 # define ALPHA 0.065
 # define SPEED 0.01
-# define STRAFE 0.005
+# define STRAFE 0.01
 # define ERROR_LIST	"SUCCESS !;\
 Extensions must be .cub;\
 Scene:;\
@@ -123,6 +123,8 @@ typedef struct s_data
 	t_vector2d	pos;
 	t_vector2d	dir;
 	t_vector2d	cam;
+
+	int			mousex;
 
 	int			map_w;
 	int			map_h;
@@ -215,4 +217,5 @@ void		ft_cast_angles(t_data data);
 void		ft_calculate(t_rayCast caster, t_data data);
 int			ft_set_walls(t_data *data);
 void		draw_dispatch(t_rayCast caster, t_data data, t_draw_p p);
+void		ft_rotate_by(t_data *data);
 #endif
