@@ -6,7 +6,7 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:43:23 by qgiraux           #+#    #+#             */
-/*   Updated: 2024/05/30 15:24:20 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/30 16:41:37 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,6 @@ int	ft_keyact(t_data *data)
 	if (data->keypress[0] || data->keypress[1] || data->keypress[2]
 		|| data->keypress[3] || data->keypress[4] || data->keypress[5])
 		printf("pos = %f|%f   dir = %f|%f\n",
-			data->pos.x, data->pos.x, data->dir.x, data->dir.y);
+			data->pos.x, data->pos.y, data->dir.x, data->dir.y);
 	return (0);
 }

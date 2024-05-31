@@ -6,7 +6,7 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:56:53 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/30 15:12:41 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/30 16:40:11 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # include "../libft/libft.h"
 # include  "../minilibx-linux/mlx.h"
 
-# define SCREEN_W 1024
-# define SCREEN_H 768
+# define SCREEN_W 800
+# define SCREEN_H 600
 # define ALPHA 0.06
 # define SPEED 0.02
 # define STRAFE 0.01
