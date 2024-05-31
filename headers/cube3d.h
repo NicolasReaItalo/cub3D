@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:56:53 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/30 16:11:20 by nrea             ###   ########.fr       */
+/*   Updated: 2024/05/31 10:29:08 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef CUBE3D_H
 # define CUBE3D_H
@@ -27,8 +26,6 @@
 # include "../libft/libft.h"
 # include  "../minilibx-linux/mlx.h"
 
-# define SCREEN_WIDTH 800
-# define SCREEN_HEIGHT 600
 # define DEFAULT_CEILING 0x0000FF
 # define DEFAULT_FLOOR 0xCCCCCC
 # define DEFAULT_NORTH_PATH "default_north_path"// A remplace par image par defaut
@@ -49,6 +46,11 @@
 #define	ERR_MAP_DIMENSIONS	11
 #define	ERR_NO_MAP	12
 #define	ERR_USAGE	13
+# define SCREEN_W 800
+# define SCREEN_H 600
+# define ALPHA 0.06
+# define SPEED 0.02
+# define STRAFE 0.01
 
 #define	ERROR_LIST	"SUCCESS !;\
 Extensions must be .cub;\
@@ -68,6 +70,21 @@ Usage: ./cub3D [path_to_scene]"
 
 
 
+
+typedef struct s_draw_p
+{
+	int		start;
+	int		end;
+	int		y;
+	int		texn;
+	int		texs;
+	int		texe;
+	int		texw;
+	double	nstep;
+	double	sstep;
+	double	estep;
+	double	wstep;
+}	t_draw_p;
 typedef struct s_vector2d
 {
 	double	x;
@@ -81,6 +98,7 @@ typedef struct s_img
 	int		bpp;
 	int		line_len;
 	int		endian;
+	char	*data;
 }	t_img;
 
 typedef struct s_tex
@@ -90,6 +108,7 @@ typedef struct s_tex
 	int		height;
 	char	*path;
 }	t_tex;
+
 typedef struct s_data
 {
 	void		*mlx_ptr;
@@ -111,6 +130,7 @@ typedef struct s_data
 	int			map_w;
 	int			map_h;
 	int			**map;
+	int			keypress[6];
 }	t_data;
 
 typedef struct	s_line
@@ -119,12 +139,30 @@ typedef struct	s_line
 	struct s_line	*next;
 }	t_line;
 
+typedef struct s_rayCast
+{
+	int			case_x;
+	int			case_y;
+	t_vector2d	ray;
+	t_vector2d	delta;
+	t_vector2d	sidedist;
+	double		walldist;
+	int			stepx;
+	int			stepy;
+	int			hit;
+	int			side;
+	int			x;
+	double		x_shift;
+}	t_rayCast;
+
 /* srcs/colors.c */
 int			ft_lerp(int c1, int c2, double f);
 int			rgb_to_int(unsigned char r, unsigned char g, unsigned char b);
 
 /*srcs/events.c*/
 int			ft_keypress(int key, t_data *data);
+int			ft_keyrelease(int key, t_data *data);
+int			ft_keyact(t_data *data);
 /*srcs/exit.c*/
 void		ft_exit_mlx_init(t_data *data);
 void		ft_exit_mlx_window(t_data *data);
@@ -144,9 +182,9 @@ int			free_map(int **map, int map_h);
 
 
 /*srcs/win_utils.c*/
-void		ft_print_cmd(void);
 int			ft_destroy_window(t_data *data);
 void		ft_end_safe(t_data *data);
+void		free_walls(t_data *data);
 
 /*srcs/data_operations.c*/
 void		free_tex_path(t_data *data);
@@ -180,4 +218,8 @@ void		free_scene(t_line **scene);
 int			error_handler(int error_code);
 int			parse_scene(t_line **scene, t_data *data);
 int			free_map(int **map, int map_h);
+void		ft_cast_angles(t_data data);
+void		ft_calculate(t_rayCast caster, t_data data);
+int			ft_set_walls(t_data *data);
+void		draw_dispatch(t_rayCast caster, t_data data, t_draw_p p);
 #endif

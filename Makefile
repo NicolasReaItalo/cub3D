@@ -4,7 +4,7 @@
 NAME	=	cub3D
 CC		=	cc
 HEADERS	=	./headers
-CFLAGS	=	-Wall -Wextra -Werror -I ${HEADERS}
+CFLAGS	=	-Wall -Wextra -Werror -g3 -I ${HEADERS}
 #########################################################
 ### LIBS
 #########################################################
@@ -21,14 +21,27 @@ endif
 #########################################################
 OBJS	=	${SRCS:.c=.o}
 SRCS	=	srcs/colors.c\
+			srcs/data_operations.c\
 			srcs/events.c\
 			srcs/exit.c\
 			srcs/main.c\
 			srcs/math_utils.c\
-			srcs/parsing_utils.c\
+			srcs/movements.c\
 			srcs/pixel.c\
+			srcs/rayCast_angles.c\
+			srcs/rayCast_draw_calculate.c\
+			srcs/rayCast_draw.c\
 			srcs/utils.c\
-			srcs/win_utils.c
+			srcs/set_imgs.c\
+			srcs/win_utils.c\
+			srcs/scene_parser/map_closing.c\
+			srcs/scene_parser/map_dimensions.c\
+			srcs/scene_parser/parse_error_handler.c\
+			srcs/scene_parser/parse_scene.c\
+			srcs/scene_parser/parsing_utils.c\
+			srcs/scene_parser/populate_map.c\
+			srcs/scene_parser/scene_loader.c\
+			srcs/scene_parser/set_text_and_col.c
 #########################################################
 ### DEBUG
 #########################################################

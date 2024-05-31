@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   win_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 14:59:29 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/28 10:42:42 by nrea             ###   ########.fr       */
+/*   Updated: 2024/05/31 10:27:00 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,23 @@ void	ft_end_safe(t_data *data)
 	free(data->mlx_ptr);
 	data->win_ptr = NULL;
 }
+void	free_walls(t_data *data)
+{
+	if (data->n_img.img.mlx_img)
+		mlx_destroy_image(data->mlx_ptr, data->n_img.img.mlx_img);
+	if (data->s_img.img.mlx_img)
+		mlx_destroy_image(data->mlx_ptr, data->s_img.img.mlx_img);
+	if (data->e_img.img.mlx_img)
+		mlx_destroy_image(data->mlx_ptr, data->e_img.img.mlx_img);
+	if (data->w_img.img.mlx_img)
+		mlx_destroy_image(data->mlx_ptr, data->w_img.img.mlx_img);
+}
 
 int	ft_destroy_window(t_data *data)
 {
 	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 	ft_end_safe(data);
+	free_walls(data);
+	mlx_loop_end(data->mlx_ptr);
 	exit (0);
-}
-
-void	ft_print_cmd(void)
-{
-	printf("\033[1;34mWELCOME TO CUBE3D\033[0m");
-	printf("\n\033[0;32mROTATE CAMERA:\033[0m [←][→]\n");
-	printf("\033[0;32mMOVE:\033[0m [A][W][S][D]\n");
 }
