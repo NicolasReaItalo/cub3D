@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   populate_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 15:47:30 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/30 15:48:05 by nrea             ###   ########.fr       */
+/*   Updated: 2024/05/31 13:06:43 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,27 @@ int	get_posdir(t_data *data, char c, int w, int h)
 {
 	if (data->pos.y >= 0 || data->pos.x >= 0)
 		return (ERR_POS_ALREADY_SET);
-	data->pos.x = w;
-	data->pos.y = h;
+	data->pos.x = w + 0.5;
+	data->pos.y = h + 0.5;
 	if (c == 'N')
-	{
-		data->dir.x = 0;
-		data->dir.y = -1;
-	}
-	else if (c == 'S')
-	{
-		data->dir.x = 0;
-		data->dir.y = 1;
-	}
-	else if (c == 'W')
 	{
 		data->dir.x = -1;
 		data->dir.y = 0;
 	}
-	else if (c == 'E')
+	else if (c == 'S')
 	{
 		data->dir.x = 1;
 		data->dir.y = 0;
+	}
+	else if (c == 'W')
+	{
+		data->dir.x = 0;
+		data->dir.y = -1;
+	}
+	else if (c == 'E')
+	{
+		data->dir.x = 0;
+		data->dir.y = 1;
 	}
 	return (SUCCESS);
 }

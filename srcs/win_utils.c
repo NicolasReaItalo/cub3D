@@ -6,7 +6,7 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 14:59:29 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/31 10:27:00 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/31 13:15:54 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ void	ft_end_safe(t_data *data)
 		mlx_destroy_image(data->mlx_ptr, screen_img->mlx_img);
 	mlx_destroy_display(data->mlx_ptr);
 	free(data->mlx_ptr);
+	free_map(data->map, data->map_h);
 	data->win_ptr = NULL;
 }
+
 void	free_walls(t_data *data)
 {
 	if (data->n_img.img.mlx_img)
@@ -38,9 +40,9 @@ void	free_walls(t_data *data)
 
 int	ft_destroy_window(t_data *data)
 {
-	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	ft_end_safe(data);
 	free_walls(data);
 	mlx_loop_end(data->mlx_ptr);
+	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	ft_end_safe(data);
 	exit (0);
 }

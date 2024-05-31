@@ -6,7 +6,7 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:56:53 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/31 10:29:08 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/31 13:13:01 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,31 +28,31 @@
 
 # define DEFAULT_CEILING 0x0000FF
 # define DEFAULT_FLOOR 0xCCCCCC
-# define DEFAULT_NORTH_PATH "default_north_path"// A remplace par image par defaut
-# define DEFAULT_SOUTH_PATH "default_south_path"// A remplace par image par defaut
-# define DEFAULT_EAST_PATH "default_east_path"// A remplace par image par defaut
-# define DEFAULT_WEST_PATH "default_west_path"// A remplace par image par defaut
-#define	SUCCESS	0
-#define	ERR_INVALID_EXTENSION	1
-#define	ERR_OPEN	2
-#define	ERR_INTERNAL	3
-#define	ERR_COLOR	4
-#define	ERR_TEX	5
-#define	ERR_CHAR	6
-#define	ERR_EMPTY	7
-#define	ERR_POS_ALREADY_SET	8
-#define	ERR_POS_NOT_SET	9
-#define	ERR_MAP_NOT_CLOSED	10
-#define	ERR_MAP_DIMENSIONS	11
-#define	ERR_NO_MAP	12
-#define	ERR_USAGE	13
-# define SCREEN_W 800
-# define SCREEN_H 600
-# define ALPHA 0.06
-# define SPEED 0.02
-# define STRAFE 0.01
-
-#define	ERROR_LIST	"SUCCESS !;\
+# define DEFAULT_NORTH_PATH "default/N.xmp"
+# define DEFAULT_SOUTH_PATH "default/S.xmp"
+# define DEFAULT_EAST_PATH "default/E.xmp"
+# define DEFAULT_WEST_PATH "default/W.xmp"
+# define SUCCESS	0
+# define ERR_INVALID_EXTENSION	1
+# define ERR_OPEN	2
+# define ERR_INTERNAL	3
+# define ERR_COLOR	4
+# define ERR_TEX	5
+# define ERR_CHAR	6
+# define ERR_EMPTY	7
+# define ERR_POS_ALREADY_SET	8
+# define ERR_POS_NOT_SET	9
+# define ERR_MAP_NOT_CLOSED	10
+# define ERR_MAP_DIMENSIONS	11
+# define ERR_NO_MAP	12
+# define ERR_USAGE	13
+# define ERR_NOTEX	14
+# define SCREEN_W 1024
+# define SCREEN_H 780
+# define ALPHA 0.065
+# define SPEED 0.01
+# define STRAFE 0.005
+# define ERROR_LIST	"SUCCESS !;\
 Extensions must be .cub;\
 Scene:;\
 An internal error has occured;\
@@ -65,11 +65,8 @@ The starting position and direction must be set;\
 The map is not closed;\
 The map must be at least 3x3;\
 Dude... You forgot to put a map;\
-Usage: ./cub3D [path_to_scene]"
-
-
-
-
+Usage: ./cub3D [path_to_scene];\
+No texture found"
 
 typedef struct s_draw_p
 {
@@ -133,7 +130,7 @@ typedef struct s_data
 	int			keypress[6];
 }	t_data;
 
-typedef struct	s_line
+typedef struct s_line
 {
 	char			*content;
 	struct s_line	*next;
@@ -172,14 +169,12 @@ int			ft_abs_int(int value);
 t_vector2d	ft_apply2dmat(t_vector2d point, double m[2][2]);
 void		ft_scalar_mul(t_vector2d *p, double scalar);
 
-
 /*srcs/pixel.c*/
 void		ft_pixel(t_img *screen_img, int x, int y, int color);
 /* srcs/utils.c*/
 void		ft_free_split(char **split);
 int			ft_split_size(char **splitted);
 int			free_map(int **map, int map_h);
-
 
 /*srcs/win_utils.c*/
 int			ft_destroy_window(t_data *data);
@@ -189,14 +184,14 @@ void		free_walls(t_data *data);
 /*srcs/data_operations.c*/
 void		free_tex_path(t_data *data);
 int			init_data(t_data *data);
-
+int			parser_init(int argc, char **argv, t_data *data);
+void		init_cam(t_data *data);
 
 /*srcs/parsing_utils.c*/
 int			ft_check_extension(char *s);
 int			isinset(char c, char *set);
 int			is_all_digits(char *s);
 int			check_if_all_digits(char *s1, char *s2, char *s3);
-
 
 /*srcs/scene_parser/map_closing.c*/
 int			is_map_closed(t_data *data);
@@ -208,10 +203,8 @@ int			populate_map(t_line *scene, t_data *data);
 int			get_color_info(int	*color, char *s);
 int			get_texture_path(char *content, char **path);
 
-
 /*srcs/scene_parser/map_dimensions.c*/
 int			find_map_dimensions(t_line *scene, int *w, int *h);
-
 
 int			load_scene(char *file_path, t_line **scene);
 void		free_scene(t_line **scene);

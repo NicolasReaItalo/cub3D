@@ -6,7 +6,7 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 11:19:24 by qgiraux           #+#    #+#             */
-/*   Updated: 2024/05/30 15:16:54 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/31 11:38:51 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,16 @@ static t_draw_p	_texx(t_rayCast caster, t_draw_p p, t_data data, double wall_x)
 		p.texe = data.e_img.width - p.texe - 1;
 	if ((caster.side == 1 || caster.side == 3) && caster.ray.y < 0)
 		p.texe = data.e_img.width - p.texe - 1;
-		
 	p.texw = (int)((wall_x - floor(wall_x)) * data.w_img.width);
 	if ((caster.side == 0 || caster.side == 2) && caster.ray.x > 0)
 		p.texw = data.w_img.width - p.texw - 1;
 	if ((caster.side == 1 || caster.side == 3) && caster.ray.y < 0)
 		p.texw = data.w_img.width - p.texw - 1;
-		
 	p.texn = (int)((wall_x - floor(wall_x)) * data.n_img.width);
 	if ((caster.side == 0 || caster.side == 2) && caster.ray.x > 0)
 		p.texn = data.n_img.width - p.texn - 1;
 	if ((caster.side == 1 || caster.side == 3) && caster.ray.y < 0)
 		p.texn = data.n_img.width - p.texn - 1;
-		
 	p.texn *= data.n_img.img.bpp >> 3;
 	p.texs *= data.s_img.img.bpp >> 3;
 	p.texe *= data.e_img.img.bpp >> 3;
@@ -64,9 +61,9 @@ static void	_drawline(t_rayCast caster, int start, int end, t_data data)
 	while (p.y < SCREEN_H)
 	{
 		if (p.y < start)
-			ft_pixel(&data.screen_img, caster.x, p.y, 0x0000DD);
+			ft_pixel(&data.screen_img, caster.x, p.y, data.c_color);
 		else if (p.y >= end)
-			ft_pixel(&data.screen_img, caster.x, p.y, 0xC19A6B);
+			ft_pixel(&data.screen_img, caster.x, p.y, data.f_color);
 		else
 			draw_dispatch(caster, data, p);
 		p.y++;

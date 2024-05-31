@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 11:55:45 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/30 15:33:17 by nrea             ###   ########.fr       */
+/*   Updated: 2024/05/31 11:39:03 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	ft_free_split(char **split)
 	}
 	free(split);
 }
+
 int	free_map(int **map, int map_h)
 {
 	int	i;

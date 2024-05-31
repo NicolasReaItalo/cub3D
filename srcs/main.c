@@ -6,7 +6,7 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:49:18 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/31 10:28:11 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/31 13:36:35 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int	ft_render(t_data *data)
 	if (data->win_ptr == NULL || data->mlx_ptr == NULL)
 		return (1);
 	ft_keyact(data);
-	//ft_refresh(&data->screen_img, 0x002255);
 	ft_cast_angles(*data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, screen_img, 0, 0);
 	return (0);
@@ -84,46 +83,28 @@ int	ft_set_img(t_data *data)
 int	main(int argc, char **argv)
 {
 	t_data	data;
-	t_line	*scene;
-	int r;
+	int		r;
 
-	r = 0;
-	if (argc != 2)
-		return (error_handler(ERR_USAGE));
-	r = init_data(&data);
-	if (r)
-		return(error_handler(r));
-	r = load_scene(argv[1], &scene);
-	if (r)
-		return (free_tex_path(&data),error_handler(r));
-	r = parse_scene(&scene,&data);
-	if (r)
-	{
-		free_scene(&scene);
-		free_map(data.map, data.map_h);
-		free_tex_path(&data);
+	r = parser_init(argc, argv, &data);
+	if (r != 0)
 		return (error_handler(r));
-	}
-	free_scene(&scene);
-	if (data.map == NULL)
-		return (free_tex_path(&data),error_handler(ERR_NO_MAP));
 	data.mlx_ptr = mlx_init();
 	if (data.mlx_ptr == NULL)
 		ft_exit_mlx_init(&data);
+	if (ERR_NOTEX == ft_set_walls(&data))
+	{
+		free_walls(&data);
+		free_tex_path(&data);
+		mlx_destroy_display(data.mlx_ptr);
+		free_map(data.map, data.map_h);
+		return (free(data.mlx_ptr), error_handler(ERR_NOTEX));
+	}
+	free_tex_path(&data);
 	data.win_ptr = mlx_new_window(data.mlx_ptr, SCREEN_W, SCREEN_H, "cub3D");
 	if (data.win_ptr == NULL)
 		ft_exit_mlx_window(&data);
 	if (!ft_set_img(&data))
 		ft_destroy_window(&data);
-
-	// Ajouter l'importation des textures
-	if (1 == ft_set_walls(&data))
-		{
-			free_map(data.map, data.map_h);
-			free_walls(&data);
-			free_tex_path(&data);
-			ft_destroy_window(&data);
-		}
 	ft_set_hooks(&data);
 	mlx_loop(data.mlx_ptr);
 }
