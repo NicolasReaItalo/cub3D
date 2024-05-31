@@ -3,5 +3,5 @@
 *.a
 a.out
 cub3D
-tests/*
+# tests/*
 minilibx-linux
