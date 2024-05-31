@@ -6,7 +6,7 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 16:07:34 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/31 13:06:49 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/31 14:20:02 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static void	init_data_const(t_data *data)
 int	init_data(t_data *data)
 {
 	init_data_const(data);
+	data->mousex = 0;
 	data->n_img.path = ft_strdup(DEFAULT_NORTH_PATH);
 	if (!data->n_img.path)
 		return (ERR_INTERNAL);
