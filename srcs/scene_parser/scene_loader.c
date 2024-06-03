@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   scene_loader.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:37:36 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/30 15:16:27 by nrea             ###   ########.fr       */
+/*   Updated: 2024/06/03 10:34:00 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-int	append_line(t_line **head, char	*content)
+static int	append_line(t_line **head, char	*content)
 {
 	t_line	*new;
 	t_line	*lst;
@@ -62,7 +62,7 @@ void	free_scene(t_line **scene)
 }
 
 /*replace \n char with \0*/
-char	*replace_eol(char *s)
+static char	*replace_eol(char *s)
 {
 	int	i;
 

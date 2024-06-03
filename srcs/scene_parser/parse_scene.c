@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_scene.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:26:14 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/30 15:58:50 by nrea             ###   ########.fr       */
+/*   Updated: 2024/06/03 10:36:06 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	allocate_map(t_data *data)
 	return (SUCCESS);
 }
 
-int	parse_map(t_line *scene, t_data *data)
+static int	parse_map(t_line *scene, t_data *data)
 {
 	int	retcode;
 

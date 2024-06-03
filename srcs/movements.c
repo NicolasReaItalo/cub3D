@@ -6,13 +6,13 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:43:23 by qgiraux           #+#    #+#             */
-/*   Updated: 2024/05/31 16:27:56 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/06/03 10:45:55 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-void	ft_rotate_by(t_data *data)
+void	_rotate_by(t_data *data)
 {
 	double	rotmat[2][2];
 	int		tmpx;
@@ -112,6 +112,6 @@ int	ft_keyact(t_data *data)
 	_strafe(data);
 	_forward(data);
 	_rotate(data);
-	ft_rotate_by(data);
+	_rotate_by(data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:56:53 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/31 17:07:46 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/06/03 10:46:35 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,22 +154,15 @@ typedef struct s_rayCast
 	double		x_shift;
 }	t_rayCast;
 
-/* srcs/colors.c */
-int			ft_lerp(int c1, int c2, double f);
-int			rgb_to_int(unsigned char r, unsigned char g, unsigned char b);
-
 /*srcs/events.c*/
 int			ft_keypress(int key, t_data *data);
 int			ft_keyrelease(int key, t_data *data);
-int			ft_keyact(t_data *data);
+
 /*srcs/exit.c*/
 void		ft_exit_mlx_init(t_data *data);
 void		ft_exit_mlx_window(t_data *data);
 /* srcs/math_utils.c */
-int			ft_sign(int value);
-int			ft_abs_int(int value);
 t_vector2d	ft_apply2dmat(t_vector2d point, double m[2][2]);
-void		ft_scalar_mul(t_vector2d *p, double scalar);
 
 /*srcs/pixel.c*/
 void		ft_pixel(t_img *screen_img, int x, int y, int color);
@@ -208,14 +201,29 @@ int			get_texture_path(char *content, char **path);
 /*srcs/scene_parser/map_dimensions.c*/
 int			find_map_dimensions(t_line *scene, int *w, int *h);
 
-int			load_scene(char *file_path, t_line **scene);
+/*srcs/scene_parser/scene_loader.c*/
 void		free_scene(t_line **scene);
+int			load_scene(char *file_path, t_line **scene);
+
+/*srcs/scene_parser/parse_error_handler.c*/
 int			error_handler(int error_code);
+
+/*srcs/scene_parser/parse_scene.c*/
 int			parse_scene(t_line **scene, t_data *data);
-int			free_map(int **map, int map_h);
+
+/*srcs/scene_parser/rayCast_angles.c*/
 void		ft_cast_angles(t_data data);
+
+/*srcs/scene_parser/rayCast_calculate.c*/
 void		ft_calculate(t_rayCast caster, t_data data);
-int			ft_set_walls(t_data *data);
+
+/*srcs/scene_parser/rayCast_draw.c*/
 void		draw_dispatch(t_rayCast caster, t_data data, t_draw_p p);
-void		ft_rotate_by(t_data *data);
+
+/*srcs/scene_parser/set_imgs.c*/
+int			ft_set_walls(t_data *data);
+
+/*srcs/scene_parser/movements.c*/
+int			ft_keyact(t_data *data);
+
 #endif

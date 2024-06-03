@@ -6,33 +6,11 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:49:18 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/31 17:07:38 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/06/03 10:23:20 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
-
-/*fill all the img with a color gradient*/
-void	ft_refresh(t_img *img, int color)
-{
-	int		r;
-	int		c;
-	double	factor;
-
-	factor = (double) 1 / SCREEN_H;
-	r = 0;
-	while (r < SCREEN_H)
-	{
-		c = 0;
-		while (c < SCREEN_W)
-		{
-			ft_pixel(img, c, r, ft_lerp(color, 0x0A, factor));
-			c++;
-		}
-		r++;
-		factor += 0.00125;
-	}
-}
 
 /*The function called by the loop at each frame
 refresh the screen / draw the grid / show menu */
@@ -87,7 +65,7 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 	int		r;
-	
+
 	r = parser_init(argc, argv, &data);
 	if (r != 0)
 		return (error_handler(r));
