@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:56:53 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/31 17:07:46 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/06/03 11:28:02 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ Scene:;\
 An internal error has occured;\
 Invalid color;\
 parsing texture path issue;\
-Invalid character found at line start;\
+Invalid character;\
 Invalid map character or empty line in map definition;\
 The position can only be set once;\
 The starting position and direction must be set;\
