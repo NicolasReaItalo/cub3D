@@ -32,6 +32,7 @@ SRCS	=	data_operations.c\
 			main.c\
 			math_utils.c\
 			movements.c\
+			minimap.c\
 			pixel.c\
 			rayCast_angles.c\
 			rayCast_draw_calculate.c\
@@ -71,16 +72,14 @@ ifneq ($(MLX),false)
 	@${MAKE} -C ${MLX} -s
 	@echo "$(BLUE)MiniLibX ready$(RESET)"
 endif
+	@echo "$(YELLOW)Compiling$(RESET)"
 	@$(CC) $(CFLAGS) -o $@ $^ $(LIB) -lm
 	@echo "$(GREEN)Ready to use $(_COLOR_BOLD)$@ !$(RESET)"
-
-echo_compiling:
-	@echo "$(YELLOW)Compiling$(RESET)"
 
 
 
 # Rule to build object files
-./$(OBJDIR)/%.o: ./$(SRCDIR)/%.c | echo_compiling
+./$(OBJDIR)/%.o: ./$(SRCDIR)/%.c  
 	@mkdir -p $(@D)
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)
 
