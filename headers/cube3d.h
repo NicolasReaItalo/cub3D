@@ -6,7 +6,7 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:56:53 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/31 14:27:41 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/31 17:07:46 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@
 # define SCREEN_W 1024
 # define SCREEN_H 780
 # define ALPHA 0.065
-# define SPEED 0.01
-# define STRAFE 0.01
+# define SPEED 0.1
+# define STRAFE 0.07
 # define ERROR_LIST	"SUCCESS !;\
 Extensions must be .cub;\
 Scene:;\

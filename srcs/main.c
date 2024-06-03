@@ -6,7 +6,7 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:49:18 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/31 16:25:04 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/31 17:07:38 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 	int		r;
-
+	
 	r = parser_init(argc, argv, &data);
 	if (r != 0)
 		return (error_handler(r));

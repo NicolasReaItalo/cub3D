@@ -6,7 +6,7 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:43:23 by qgiraux           #+#    #+#             */
-/*   Updated: 2024/05/31 16:22:39 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/05/31 16:27:56 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ static void	_forward(t_data *data)
 
 	if (data->keypress[0] == 1)
 	{
-		tmpx = data->pos.x + data->pos.x * (data->dir.x * SPEED);
-		tmpy = data->pos.y + data->pos.y * (data->dir.y * SPEED);
+		tmpx = data->pos.x + (data->dir.x * SPEED);
+		tmpy = data->pos.y + (data->dir.y * SPEED);
 		if (1 != data->map[(int)tmpx][(int)tmpy])
 		{
 			data->pos.x = tmpx;
@@ -70,8 +70,8 @@ static void	_forward(t_data *data)
 	}
 	if (data->keypress[1] == 1)
 	{
-		tmpx = data->pos.x - data->pos.x * (data->dir.x * SPEED);
-		tmpy = data->pos.y - data->pos.y * (data->dir.y * SPEED);
+		tmpx = data->pos.x - (data->dir.x * SPEED);
+		tmpy = data->pos.y - (data->dir.y * SPEED);
 		if (1 != data->map[(int)tmpx][(int)tmpy])
 		{
 			data->pos.x = tmpx;
@@ -87,8 +87,8 @@ static void	_strafe(t_data *data)
 
 	if (data->keypress[2] == 1)
 	{
-		tmpx = data->pos.x - data->pos.x * (data->dir.y * STRAFE);
-		tmpy = data->pos.y + data->pos.y * (data->dir.x * STRAFE);
+		tmpx = data->pos.x - (data->dir.y * STRAFE);
+		tmpy = data->pos.y + (data->dir.x * STRAFE);
 		if (1 != data->map[(int)tmpx][(int)tmpy])
 		{
 			data->pos.x = tmpx;
@@ -97,8 +97,8 @@ static void	_strafe(t_data *data)
 	}
 	if (data->keypress[3] == 1)
 	{
-		tmpx = data->pos.x + data->pos.x * (data->dir.y * STRAFE);
-		tmpy = data->pos.y - data->pos.y * (data->dir.x * STRAFE);
+		tmpx = data->pos.x + (data->dir.y * STRAFE);
+		tmpy = data->pos.y - (data->dir.x * STRAFE);
 		if (1 != data->map[(int)tmpx][(int)tmpy])
 		{
 			data->pos.x = tmpx;
@@ -113,6 +113,5 @@ int	ft_keyact(t_data *data)
 	_forward(data);
 	_rotate(data);
 	ft_rotate_by(data);
-	printf(" pos = %f | %f\n", data->pos.x, data->pos.y);
 	return (0);
 }
