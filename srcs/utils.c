@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 11:55:45 by nrea              #+#    #+#             */
-/*   Updated: 2024/06/03 10:37:22 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/06/03 14:04:18 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,16 @@ int	free_map(int **map, int map_h)
 {
 	int	i;
 
-	if (!map)
+	if (!map || !*map)
 		return (0);
 	i = 0;
 	while (i < map_h)
 	{
-		free(map[i]);
+		if (map[i])
+			free(map[i]);
 		i++;
 	}
-	free(map);
+	if (map)
+		free(map);
 	return (0);
 }
