@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:56:53 by nrea              #+#    #+#             */
-/*   Updated: 2024/06/03 12:04:48 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/06/03 16:59:40 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@
 # define ERR_NO_MAP	12
 # define ERR_USAGE	13
 # define ERR_NOTEX	14
+# define ERR_TEX_ALREADY_SET	15
+# define ERR_COL_ALREADY_SET	16
 # define SCREEN_W 1024
 # define SCREEN_H 780
 # define ALPHA 0.065
@@ -66,7 +68,9 @@ The map is not closed;\
 The map must be at least 3x3;\
 Dude... You forgot to put a map;\
 Usage: ./cub3D [path_to_scene];\
-No texture found"
+No texture found;\
+A texture path can only be set up once per scene;\
+Color already set;"
 
 typedef struct s_draw_p
 {
@@ -186,7 +190,9 @@ void		init_cam(t_data *data);
 int			ft_check_extension(char *s);
 int			isinset(char c, char *set);
 int			is_all_digits(char *s);
-int			check_if_all_digits(char *s1, char *s2, char *s3);
+int			check_valid_colors(char *s1, char *s2, char *s3);
+char		*strip(char *s);
+
 
 /*srcs/scene_parser/map_closing.c*/
 int			is_map_closed(t_data *data);

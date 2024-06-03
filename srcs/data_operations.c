@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_operations.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 16:07:34 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/31 15:53:34 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/06/03 16:40:33 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,18 @@
 
 void	free_tex_path(t_data *data)
 {
-	free(data->n_img.path);
-	free(data->s_img.path);
-	free(data->w_img.path);
-	free(data->e_img.path);
+	if (data->n_img.path)
+		free(data->n_img.path);
+	if (data->s_img.path)
+		free(data->s_img.path);
+	if (data->w_img.path)
+		free(data->w_img.path);
+	if (data->e_img.path)
+		free(data->e_img.path);
 }
 
 static void	init_data_const(t_data *data)
 {
-	data->c_color = DEFAULT_CEILING;
-	data->f_color = DEFAULT_FLOOR;
 	data->pos.x = -1;
 	data->pos.y = -1;
 	data->dir.x = -1;
@@ -41,27 +43,12 @@ static void	init_data_const(t_data *data)
 	data->keypress[3] = 0;
 	data->keypress[4] = 0;
 	data->keypress[5] = 0;
-}
-
-int	init_data(t_data *data)
-{
-	init_data_const(data);
-	data->n_img.path = ft_strdup(DEFAULT_NORTH_PATH);
-	if (!data->n_img.path)
-		return (ERR_INTERNAL);
-	data->s_img.path = ft_strdup(DEFAULT_SOUTH_PATH);
-	if (!data->s_img.path)
-		return (free(data->n_img.path), ERR_INTERNAL);
-	data->e_img.path = ft_strdup(DEFAULT_EAST_PATH);
-	if (!data->e_img.path)
-		return (free(data->n_img.path), free(data->s_img.path), ERR_INTERNAL);
-	data->w_img.path = ft_strdup(DEFAULT_WEST_PATH);
-	if (!data->w_img.path)
-	{
-		free(data->e_img.path);
-		return (free(data->n_img.path), free(data->s_img.path), ERR_INTERNAL);
-	}
-	return (SUCCESS);
+	data->n_img.path = NULL;
+	data->s_img.path = NULL;
+	data->e_img.path = NULL;
+	data->w_img.path = NULL;
+	data->c_color = -1;
+	data->f_color = -1;
 }
 
 int	parser_init(int argc, char **argv, t_data *data)
@@ -72,12 +59,10 @@ int	parser_init(int argc, char **argv, t_data *data)
 	r = 0;
 	if (argc != 2)
 		return (ERR_USAGE);
-	r = init_data(data);
-	if (r)
-		return (r);
+	init_data_const(data);
 	r = load_scene(argv[1], &scene);
 	if (r)
-		return (free_tex_path(data), r);
+		return (r);
 	r = parse_scene(&scene, data);
 	if (r)
 	{
