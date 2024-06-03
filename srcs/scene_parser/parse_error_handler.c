@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 13:40:28 by nrea              #+#    #+#             */
-/*   Updated: 2024/05/30 14:27:31 by nrea             ###   ########.fr       */
+/*   Updated: 2024/06/03 11:41:49 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	error_handler(int error_code)
 	printf("Error\n");
 	printf("%s", errors[error_code]);
 	if (error_code == ERR_OPEN)
-		printf("  %s", strerror(errno));
+		printf("%s", strerror(errno));
 	printf("\n");
 	ft_free_split(errors);
 	return (error_code);
