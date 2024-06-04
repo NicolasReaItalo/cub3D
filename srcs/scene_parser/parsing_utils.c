@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 14:01:10 by nrea              #+#    #+#             */
-/*   Updated: 2024/06/03 16:58:15 by nrea             ###   ########.fr       */
+/*   Updated: 2024/06/04 10:15:04 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	check_valid_colors(char *s1, char *s2, char *s3)
 	return (1);
 }
 
+/*strips spaces before and after the word*/
 char	*strip(char *s)
 {
 	char	*start;
@@ -72,10 +73,11 @@ char	*strip(char *s)
 
 	end_index = ft_strlen(s);
 	if (!*s || !end_index)
-		return (NULL);
+		return ("X");
 	start = s;
 	while (*start == ' ')
 		start++;
+	end_index--;
 	while (end_index >= 0 && s[end_index] == ' ')
 	{
 		s[end_index] = '\0';

@@ -6,15 +6,11 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 15:54:30 by nrea              #+#    #+#             */
-/*   Updated: 2024/06/03 17:00:07 by nrea             ###   ########.fr       */
+/*   Updated: 2024/06/04 10:45:45 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
-
-
-
-
 
 /*parse the char *s to find color infos and set the pointer color*/
 int	get_color_info(int	*color, char *s)
@@ -24,13 +20,11 @@ int	get_color_info(int	*color, char *s)
 	int		g;
 	int		b;
 
-	s += 2;
+	s += 1;
 	if (!*s)
 		return (ERR_COLOR);
 	if (*color != -1)
 		return (ERR_COL_ALREADY_SET);
-	while (*s == ' ')
-		s++;
 	t = ft_split(s, ',');
 	if (!t)
 		return (ERR_INTERNAL);
