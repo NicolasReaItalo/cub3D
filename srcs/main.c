@@ -6,7 +6,7 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:49:18 by nrea              #+#    #+#             */
-/*   Updated: 2024/06/03 10:23:20 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/06/03 16:00:23 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,11 @@ int	ft_render(t_data *data)
 		return (1);
 	ft_keyact(data);
 	ft_cast_angles(*data);
+	ft_minimap(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, screen_img, 0, 0);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
+		data->map_img.mlx_img, SCREEN_W - data->mmap_size * data->map_w,
+		SCREEN_H - data->mmap_size * data->map_h);
 	return (0);
 }
 

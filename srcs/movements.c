@@ -6,7 +6,7 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:43:23 by qgiraux           #+#    #+#             */
-/*   Updated: 2024/06/03 10:45:55 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/06/03 15:10:37 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,21 +62,19 @@ static void	_forward(t_data *data)
 	{
 		tmpx = data->pos.x + (data->dir.x * SPEED);
 		tmpy = data->pos.y + (data->dir.y * SPEED);
-		if (1 != data->map[(int)tmpx][(int)tmpy])
-		{
-			data->pos.x = tmpx;
+		if (1 != data->map[(int)data->pos.x][(int)tmpy])
 			data->pos.y = tmpy;
-		}
+		if (1 != data->map[(int)tmpx][(int)data->pos.y])
+			data->pos.x = tmpx;
 	}
 	if (data->keypress[1] == 1)
 	{
 		tmpx = data->pos.x - (data->dir.x * SPEED);
 		tmpy = data->pos.y - (data->dir.y * SPEED);
-		if (1 != data->map[(int)tmpx][(int)tmpy])
-		{
-			data->pos.x = tmpx;
+		if (1 != data->map[(int)data->pos.x][(int)tmpy])
 			data->pos.y = tmpy;
-		}
+		if (1 != data->map[(int)tmpx][(int)data->pos.y])
+			data->pos.x = tmpx;
 	}
 }
 
@@ -89,21 +87,19 @@ static void	_strafe(t_data *data)
 	{
 		tmpx = data->pos.x - (data->dir.y * STRAFE);
 		tmpy = data->pos.y + (data->dir.x * STRAFE);
-		if (1 != data->map[(int)tmpx][(int)tmpy])
-		{
-			data->pos.x = tmpx;
+		if (1 != data->map[(int)data->pos.x][(int)tmpy])
 			data->pos.y = tmpy;
-		}
+		if (1 != data->map[(int)tmpx][(int)data->pos.y])
+			data->pos.x = tmpx;
 	}
 	if (data->keypress[3] == 1)
 	{
 		tmpx = data->pos.x + (data->dir.y * STRAFE);
 		tmpy = data->pos.y - (data->dir.x * STRAFE);
-		if (1 != data->map[(int)tmpx][(int)tmpy])
-		{
-			data->pos.x = tmpx;
+		if (1 != data->map[(int)data->pos.x][(int)tmpy])
 			data->pos.y = tmpy;
-		}
+		if (1 != data->map[(int)tmpx][(int)data->pos.y])
+			data->pos.x = tmpx;
 	}
 }
 

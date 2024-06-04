@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 16:07:34 by nrea              #+#    #+#             */
-/*   Updated: 2024/06/04 11:34:15 by nrea             ###   ########.fr       */
+/*   Updated: 2024/06/04 11:58:15 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,4 +103,5 @@ void	init_cam(t_data *data)
 	mat[1][0] = -0.66;
 	mat[1][1] = 0;
 	data->cam = ft_apply2dmat(data->dir, mat);
+	data->map_img.mlx_img = NULL;
 }

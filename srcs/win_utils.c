@@ -6,7 +6,7 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 14:59:29 by nrea              #+#    #+#             */
-/*   Updated: 2024/06/03 10:30:11 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/06/03 16:06:12 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	ft_end_safe(t_data *data)
 	screen_img = &(data->screen_img);
 	if (screen_img->mlx_img)
 		mlx_destroy_image(data->mlx_ptr, screen_img->mlx_img);
+	if (data->map_img.mlx_img)
+		mlx_destroy_image(data->mlx_ptr, data->map_img.mlx_img);
 	mlx_destroy_display(data->mlx_ptr);
 	free(data->mlx_ptr);
 	free_map(data->map, data->map_h);

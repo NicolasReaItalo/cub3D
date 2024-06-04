@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:56:53 by nrea              #+#    #+#             */
-/*   Updated: 2024/06/04 11:38:29 by nrea             ###   ########.fr       */
+/*   Updated: 2024/06/04 11:58:04 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,12 @@
 # define ERR_TEX_ALREADY_SET	15
 # define ERR_COL_ALREADY_SET	16
 # define ERR_NOT_ALL_SET	17
-# define SCREEN_W 1024
-# define SCREEN_H 780
+# define SCREEN_W 1332
+# define SCREEN_H 999
 # define ALPHA 0.065
 # define SPEED 0.1
-# define STRAFE 0.07
+# define STRAFE 0.08
+# define SCALE 0.3
 # define ERROR_LIST	"SUCCESS !;\
 Extensions must be .cub;\
 Scene:;\
@@ -126,6 +127,8 @@ typedef struct s_data
 
 	int			mousex;
 
+	double		mmap_size;
+	t_img		map_img;
 	int			map_w;
 	int			map_h;
 	int			**map;
@@ -225,5 +228,8 @@ int			ft_set_walls(t_data *data);
 
 /*srcs/scene_parser/movements.c*/
 int			ft_keyact(t_data *data);
+
+/*srcs/scene_parser/minimap.c*/
+int			ft_minimap(t_data *data);
 
 #endif
