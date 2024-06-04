@@ -54,13 +54,16 @@ fi
 
 ## test valgrind
 echo -n "	Valgrind test:		"
-valgrind -q --error-exitcode=55 $PATH_TO_CUB $SCENE_PATH &> .valgrind_output
+valgrind -q --error-exitcode=55 --leak-check=full --errors-for-leak-kinds=all --show-reachable=yes $PATH_TO_CUB $SCENE_PATH &> .valgrind_output
 VAL_EXIT=$?
-if [ $diff_r -ne 55 ]
+# echo -e $Red$VAL_EXIT
+if [ $VAL_EXIT -eq 55 ]
 then
-	echo -e "${BGreen}[OK]${Color_Off}"
-else
 	echo -e "${BRed}[FAILED]${Color_Off}"
+	ERROR=1;
+
+else
+	echo -e "${BGreen}[OK]${Color_Off}"
 fi
 
 echo -en ${Color_Off}
@@ -224,3 +227,6 @@ SCENE_PATH="tests/maps/multiple_player.cub"
 VALID__ERROR_OUTPUT="Error\nThe position can only be set once\n"
 TEST
 
+SCENE_PATH="tests/maps/not_existing_texture.cub"
+VALID__ERROR_OUTPUT="Error\nNo texture found\n"
+TEST
