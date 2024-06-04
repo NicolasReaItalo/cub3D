@@ -6,7 +6,7 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 12:49:19 by qgiraux           #+#    #+#             */
-/*   Updated: 2024/06/03 16:07:15 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/06/04 10:48:14 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	ft_minimap(t_data *data)
 	data->mmap_size = (SCALE * SCREEN_H) / fmax(data->map_w, data->map_h);
 	if (!data->map_img.mlx_img)
 		data->map_img.mlx_img = mlx_new_image(data->mlx_ptr,
-			data->mmap_size * data->map_w, data->mmap_size * data->map_h);
+				data->mmap_size * data->map_w, data->mmap_size * data->map_h);
 	if (!data->map_img.mlx_img)
 		return (0);
 	data->map_img.addr = mlx_get_data_addr(data->map_img.mlx_img,

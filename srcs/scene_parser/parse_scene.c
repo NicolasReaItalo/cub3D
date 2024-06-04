@@ -6,7 +6,7 @@
 /*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:26:14 by nrea              #+#    #+#             */
-/*   Updated: 2024/06/03 10:36:06 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/06/04 10:43:51 by qgiraux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	allocate_map(t_data *data)
 	{
 		data->map[i] = ft_calloc(data->map_w, sizeof(int));
 		if (!data->map[i])
-			return (free_map(data->map, i), ERR_INTERNAL);
+			return (ERR_INTERNAL);
 		i++;
 	}
 	return (SUCCESS);
