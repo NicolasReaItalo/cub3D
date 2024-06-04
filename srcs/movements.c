@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:43:23 by qgiraux           #+#    #+#             */
-/*   Updated: 2024/06/03 15:10:37 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/06/04 12:41:09 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ void	_rotate_by(t_data *data)
 	int		y;
 
 	tmpx = data->mousex;
+	if (data->mousex > SCREEN_W || data->mousex < SCREEN_W * 0)
+	{
+		mlx_mouse_move(data->mlx_ptr,
+			data->win_ptr, SCREEN_W / 2, SCREEN_H / 2);
+		tmpx = data->mousex;
+	}
 	mlx_mouse_get_pos(data->mlx_ptr, data->win_ptr, &data->mousex, &y);
 	rotmat[0][0] = cos(ALPHA * (tmpx - data->mousex) / 10);
 	rotmat[0][1] = -sin(ALPHA * (tmpx - data->mousex) / 10);

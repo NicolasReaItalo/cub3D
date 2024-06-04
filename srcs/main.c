@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qgiraux <qgiraux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:49:18 by nrea              #+#    #+#             */
-/*   Updated: 2024/06/03 16:00:23 by qgiraux          ###   ########.fr       */
+/*   Updated: 2024/06/04 12:39:32 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	ft_set_hooks(t_data *data)
 {
 	int	y;
 
+	mlx_mouse_hide(data->mlx_ptr, data->win_ptr);
 	mlx_mouse_get_pos(data->mlx_ptr, data->win_ptr, &data->mousex, &y);
 	mlx_loop_hook(data->mlx_ptr, &ft_render, data);
 	mlx_hook(data->win_ptr, 17, 1L << 2, &ft_destroy_window, data);

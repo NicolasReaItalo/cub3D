@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 14:01:10 by nrea              #+#    #+#             */
-/*   Updated: 2024/06/04 11:40:03 by nrea             ###   ########.fr       */
+/*   Updated: 2024/06/04 12:40:30 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	isinset(char c, char *set)
 	}
 	return (0);
 }
-
 
 static int	is_valid_color(char *s)
 {

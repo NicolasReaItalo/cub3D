@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:26:14 by nrea              #+#    #+#             */
-/*   Updated: 2024/06/04 11:58:25 by nrea             ###   ########.fr       */
+/*   Updated: 2024/06/04 12:23:14 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,22 @@ static int	look_for_tex(char *content, t_data *data, int *match_found)
 	if (!ft_strncmp(content, "NO", 2))
 	{
 		*match_found = 1;
-		return (get_texture_path(content, &data->n_img.path));
+		return (get_texture_path(content, &data->s_img.path));
 	}
 	else if (!ft_strncmp(content, "SO", 2))
 	{
 		*match_found = 1;
-		return (get_texture_path(content, &data->s_img.path));
+		return (get_texture_path(content, &data->n_img.path));
 	}
 	else if (!ft_strncmp(content, "WE", 2))
 	{
 		*match_found = 1;
-		return (get_texture_path(content, &data->w_img.path));
+		return (get_texture_path(content, &data->e_img.path));
 	}
 	else if (!ft_strncmp(content, "EA", 2))
 	{
 		*match_found = 1;
-		return (get_texture_path(content, &data->e_img.path));
+		return (get_texture_path(content, &data->w_img.path));
 	}
 	return (0);
 }
