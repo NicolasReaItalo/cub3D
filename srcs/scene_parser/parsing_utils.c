@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 14:01:10 by nrea              #+#    #+#             */
-/*   Updated: 2024/06/04 10:59:07 by nrea             ###   ########.fr       */
+/*   Updated: 2024/06/04 11:40:03 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,24 +43,28 @@ int	isinset(char c, char *set)
 	return (0);
 }
 
-int	is_all_digits(char *s)
+
+static int	is_valid_color(char *s)
 {
-	while (*s)
+	int	i;
+
+	i = 0;
+	while (s[i])
 	{
-		if (!ft_isdigit(*s))
+		if (!ft_isdigit(s[i]) || i > 2)
 			return (0);
-		s++;
+		i++;
 	}
 	return (1);
 }
 
 int	check_valid_colors(char *s1, char *s2, char *s3)
 {
-	if (!is_all_digits(s1))
+	if (!is_valid_color(s1))
 		return (0);
-	if (!is_all_digits(s2))
+	if (!is_valid_color(s2))
 		return (0);
-	if (!is_all_digits(s3))
+	if (!is_valid_color(s3))
 		return (0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:56:53 by nrea              #+#    #+#             */
-/*   Updated: 2024/06/04 11:10:10 by nrea             ###   ########.fr       */
+/*   Updated: 2024/06/04 11:38:29 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,6 @@ void		init_cam(t_data *data);
 /*srcs/parsing_utils.c*/
 int			ft_check_extension(char *s);
 int			isinset(char c, char *set);
-int			is_all_digits(char *s);
 int			check_valid_colors(char *s1, char *s2, char *s3);
 char		*strip(char *s);
 

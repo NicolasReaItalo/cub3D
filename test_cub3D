@@ -87,23 +87,23 @@ echo -e ${Color_Off}
 echo -e "${BCyan}tests SANS CAS D'ERREUR $Color_Off"
 echo -e "${Cyan}(Le programme doit se lancer correctement) $Color_Off"
 
-SCENE_PATH="./test_maps/classic.cub"
+SCENE_PATH="./tests/maps/classic.cub"
 echo $(pwd)
 VALID__ERROR_OUTPUT=""
 TEST
 
 
-SCENE_PATH="./test_maps/classic_authorized_empty_lines.cub"
+SCENE_PATH="./tests/maps/classic_authorized_empty_lines.cub"
 VALID__ERROR_OUTPUT=""
 TEST
 
-SCENE_PATH="./test_maps/smallest.cub"
+SCENE_PATH="./tests/maps/smallest.cub"
 VALID__ERROR_OUTPUT=""
 TEST
 
 
 
-SCENE_PATH="./test_maps/classic_closed_internal.cub"
+SCENE_PATH="./tests/maps/classic_closed_internal.cub"
 VALID__ERROR_OUTPUT=""
 TEST
 #################################################
@@ -111,7 +111,7 @@ echo -e "${BCyan} . CAS D'ERREURS $Color_Off"
 echo -e "${Cyan}(Le programme doit quitter avec un message d'erreur) $Color_Off"
 
 
-SCENE_PATH="./test_maps/classic.wrongextension"
+SCENE_PATH="./tests/maps/classic.wrongextension"
 VALID__ERROR_OUTPUT="Error\nExtensions must be .cub\n"
 TEST
 
@@ -119,28 +119,32 @@ SCENE_PATH="not-existing_map.cub"
 VALID__ERROR_OUTPUT="Error\nScene:No such file or directory\n"
 TEST
 
-SCENE_PATH="./test_maps/classic_forbidden_emptyLine.cub"
+SCENE_PATH="./tests/maps/classic_forbidden_emptyLine.cub"
 VALID__ERROR_OUTPUT="Error\nInvalid map character or empty line in map definition\n"
 TEST
 
 
-SCENE_PATH="./test_maps/invalid_char.cub"
+SCENE_PATH="./tests/maps/invalid_char.cub"
 VALID__ERROR_OUTPUT="Error\nInvalid character\n"
 TEST
 
-SCENE_PATH="./test_maps/color_formatting.cub"
+SCENE_PATH="./tests/maps/color_formatting.cub"
 VALID__ERROR_OUTPUT="Error\nInvalid color\n"
 TEST
 
-SCENE_PATH="./test_maps/color_formatting_2.cub"
+SCENE_PATH="./tests/maps/overflow_attempt.cub"
 VALID__ERROR_OUTPUT="Error\nInvalid color\n"
 TEST
 
-SCENE_PATH="./test_maps/color_outrange.cub"
+SCENE_PATH="./tests/maps/color_formatting_2.cub"
 VALID__ERROR_OUTPUT="Error\nInvalid color\n"
 TEST
 
-SCENE_PATH="./test_maps/toosmall.cub"
+SCENE_PATH="./tests/maps/color_outrange.cub"
+VALID__ERROR_OUTPUT="Error\nInvalid color\n"
+TEST
+
+SCENE_PATH="./tests/maps/toosmall.cub"
 VALID__ERROR_OUTPUT="Error\nThe map must be at least 3x3\n"
 TEST
 
@@ -152,67 +156,69 @@ TEST
 chmod 777 forbidden_map.cub
 rm  forbidden_map.cub
 
-SCENE_PATH="./test_maps/empty_map.cub"
+SCENE_PATH="./tests/maps/empty_map.cub"
 VALID__ERROR_OUTPUT="Error\nDude... You forgot to put a map\n"
 TEST
 
-SCENE_PATH="./test_maps/classic_unclosed_1.cub"
+SCENE_PATH="./tests/maps/classic_unclosed_1.cub"
 VALID__ERROR_OUTPUT="Error\nThe map is not closed\n"
 TEST
 
-SCENE_PATH="./test_maps/classic_unclosed_2.cub"
+SCENE_PATH="./tests/maps/classic_unclosed_2.cub"
 VALID__ERROR_OUTPUT="Error\nThe map is not closed\n"
 TEST
 
-SCENE_PATH="./test_maps/classic_unclosed_3.cub"
+SCENE_PATH="./tests/maps/classic_unclosed_3.cub"
 VALID__ERROR_OUTPUT="Error\nThe map is not closed\n"
 TEST
 	# verifier qu'on ne set pas deux fois une couleur
-SCENE_PATH="test_maps/duplicate_C.cub"
+SCENE_PATH="tests/maps/duplicate_C.cub"
 VALID__ERROR_OUTPUT="Error\nColor already set\n"
 TEST
 
-SCENE_PATH="test_maps/duplicate_F.cub"
+SCENE_PATH="tests/maps/duplicate_F.cub"
 VALID__ERROR_OUTPUT="Error\nColor already set\n"
 TEST
 	# pas de texture par defaut
-SCENE_PATH="test_maps/duplicate_NO.cub"
+SCENE_PATH="tests/maps/duplicate_NO.cub"
 VALID__ERROR_OUTPUT="Error\nA texture path can only be set up once per scene\n"
 TEST
 
-SCENE_PATH="test_maps/duplicate_EA.cub"
+SCENE_PATH="tests/maps/duplicate_EA.cub"
 VALID__ERROR_OUTPUT="Error\nA texture path can only be set up once per scene\n"
 TEST
 
-SCENE_PATH="test_maps/duplicate_SO.cub"
+SCENE_PATH="tests/maps/duplicate_SO.cub"
 VALID__ERROR_OUTPUT="Error\nA texture path can only be set up once per scene\n"
 TEST
 
-SCENE_PATH="test_maps/duplicate_WE.cub"
+SCENE_PATH="tests/maps/duplicate_WE.cub"
 VALID__ERROR_OUTPUT="Error\nA texture path can only be set up once per scene\n"
 TEST
 	# couleur manquqante
-SCENE_PATH="test_maps/not_set_C.cub"
+SCENE_PATH="tests/maps/not_set_C.cub"
 VALID__ERROR_OUTPUT="Error\nAll Color and texture informations must be set\n"
 TEST
 
-SCENE_PATH="test_maps/not_set_F.cub"
+SCENE_PATH="tests/maps/not_set_F.cub"
 VALID__ERROR_OUTPUT="Error\nAll Color and texture informations must be set\n"
 TEST
 	# texture manquante
-SCENE_PATH="test_maps/not_set_EA.cub"
+SCENE_PATH="tests/maps/not_set_EA.cub"
 VALID__ERROR_OUTPUT="Error\nAll Color and texture informations must be set\n"
 TEST
 
-SCENE_PATH="test_maps/not_set_WE.cub"
+SCENE_PATH="tests/maps/not_set_WE.cub"
 VALID__ERROR_OUTPUT="Error\nAll Color and texture informations must be set\n"
 TEST
 
-SCENE_PATH="test_maps/not_set_NO.cub"
+SCENE_PATH="tests/maps/not_set_NO.cub"
 VALID__ERROR_OUTPUT="Error\nAll Color and texture informations must be set\n"
 TEST
 
-SCENE_PATH="test_maps/not_set_SO.cub"
+SCENE_PATH="tests/maps/not_set_SO.cub"
 VALID__ERROR_OUTPUT="Error\nAll Color and texture informations must be set\n"
 TEST
      # verifier cas d'overflow des couleurs avec un strlen
+
+
