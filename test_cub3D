@@ -219,6 +219,8 @@ TEST
 SCENE_PATH="tests/maps/not_set_SO.cub"
 VALID__ERROR_OUTPUT="Error\nAll Color and texture informations must be set\n"
 TEST
-     # verifier cas d'overflow des couleurs avec un strlen
 
+SCENE_PATH="tests/maps/multiple_player.cub"
+VALID__ERROR_OUTPUT="Error\nThe position can only be set once\n"
+TEST
 
