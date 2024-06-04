@@ -1,3 +1,9 @@
+
+NO tests/textures/celestial.xpm
+SO tests/textures/flower.xpm
+WE tests/textures/greendragon.xpm
+EA tests/textures/treeolife.xpm
+
 F 128,128,128
 C 0,130,220
 

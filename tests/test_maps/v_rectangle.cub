@@ -1,3 +1,11 @@
+NO tests/textures/N.xmp
+SO tests/textures/S.xmp
+WE tests/textures/W.xmp
+EA tests/textures/E.xmp
+
+F 255,255,0
+C 255,255,255
+
 11111111
 10000001
 10000001
