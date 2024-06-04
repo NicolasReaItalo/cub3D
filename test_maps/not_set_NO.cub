@@ -1,9 +1,8 @@
-NO default/N.xpm
 SO default/S.xpm
 WE default/W.xpm
 EA default/E.xpm
 
-C 128, 128, 128
+C 200, 200, 200
 F 200, 200, 200
 
         1111111111111111111111111

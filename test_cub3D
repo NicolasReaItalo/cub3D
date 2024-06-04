@@ -1,0 +1,218 @@
+#!/bin/bash
+# Reset
+Color_Off='\033[0m'       # Text Reset
+
+# # Regular Colors
+Black='\033[0;30m'        # Black
+Red='\033[0;31m'          # Red
+Green='\033[0;32m'        # Green
+Yellow='\033[0;33m'       # Yellow
+Blue='\033[0;34m'         # Blue
+Purple='\033[0;35m'       # Purple
+Cyan='\033[0;36m'         # Cyan
+White='\033[0;37m'        # White
+
+# Bold
+BBlack='\033[1;30m'       # Black
+BRed='\033[1;31m'         # Red
+BGreen='\033[1;32m'       # Green
+BYellow='\033[1;33m'      # Yellow
+BBlue='\033[1;34m'        # Blue
+BPurple='\033[1;35m'      # Purple
+BCyan='\033[1;36m'        # Cyan
+BWhite='\033[1;37m'       # White
+
+Italic="\033[3m"
+
+
+PATH_TO_CUB="./cub3D"
+test_nb=0
+SCENE_PATH=""
+ERROR=0
+
+	rm -f .tmp
+	rm -f VALID__ERROR_OUTPUT
+	rm -f .valgrind_output
+
+TEST()
+{
+test_nb=$((test_nb + 1))
+echo -e "${BPurple}($test_nb) Testing [${Yellow}$SCENE_PATH${BPurple}] : ${Color_Off}"
+ $PATH_TO_CUB $SCENE_PATH &>.tmp
+ echo -e "$Italic output :\n[$(cat .tmp)]\n$Color_Off"
+echo -en $VALID__ERROR_OUTPUT> .VALID__ERROR_OUTPUT
+echo -n "	comparing error outputs:	"
+diff -q .tmp .VALID__ERROR_OUTPUT 1>/dev/null 2>/dev/null
+diff_r=$?
+if [ $diff_r -eq 0 ]
+then
+	echo -e "${BGreen}[OK]${Color_Off}"
+else
+	echo -e "${BRed}[FAILED]${Color_Off}"
+	ERROR=1;
+fi
+
+## test valgrind
+echo -n "	Valgrind test:		"
+valgrind -q --error-exitcode=55 $PATH_TO_CUB $SCENE_PATH &> .valgrind_output
+VAL_EXIT=$?
+if [ $diff_r -ne 55 ]
+then
+	echo -e "${BGreen}[OK]${Color_Off}"
+else
+	echo -e "${BRed}[FAILED]${Color_Off}"
+fi
+
+echo -en ${Color_Off}
+
+if [ $ERROR -eq 1 ]
+then
+	exit 1
+fi
+	rm .tmp
+	rm .VALID__ERROR_OUTPUT
+	rm .valgrind_output
+}
+
+
+
+echo -e "\n ${BBlue}
+###################################################
+#                                                 #
+#                 tests CUB3D                     #
+#                                                 #
+###################################################"
+echo -e ${Color_Off}
+
+echo -e "${BCyan}tests SANS CAS D'ERREUR $Color_Off"
+echo -e "${Cyan}(Le programme doit se lancer correctement) $Color_Off"
+
+SCENE_PATH="./test_maps/classic.cub"
+echo $(pwd)
+VALID__ERROR_OUTPUT=""
+TEST
+
+
+SCENE_PATH="./test_maps/classic_authorized_empty_lines.cub"
+VALID__ERROR_OUTPUT=""
+TEST
+
+SCENE_PATH="./test_maps/smallest.cub"
+VALID__ERROR_OUTPUT=""
+TEST
+
+
+
+SCENE_PATH="./test_maps/classic_closed_internal.cub"
+VALID__ERROR_OUTPUT=""
+TEST
+#################################################
+echo -e "${BCyan} . CAS D'ERREURS $Color_Off"
+echo -e "${Cyan}(Le programme doit quitter avec un message d'erreur) $Color_Off"
+
+
+SCENE_PATH="./test_maps/classic.wrongextension"
+VALID__ERROR_OUTPUT="Error\nExtensions must be .cub\n"
+TEST
+
+SCENE_PATH="not-existing_map.cub"
+VALID__ERROR_OUTPUT="Error\nScene:No such file or directory\n"
+TEST
+
+SCENE_PATH="./test_maps/classic_forbidden_emptyLine.cub"
+VALID__ERROR_OUTPUT="Error\nInvalid map character or empty line in map definition\n"
+TEST
+
+
+SCENE_PATH="./test_maps/invalid_char.cub"
+VALID__ERROR_OUTPUT="Error\nInvalid character\n"
+TEST
+
+SCENE_PATH="./test_maps/color_formatting.cub"
+VALID__ERROR_OUTPUT="Error\nInvalid color\n"
+TEST
+
+SCENE_PATH="./test_maps/color_formatting_2.cub"
+VALID__ERROR_OUTPUT="Error\nInvalid color\n"
+TEST
+
+SCENE_PATH="./test_maps/color_outrange.cub"
+VALID__ERROR_OUTPUT="Error\nInvalid color\n"
+TEST
+
+SCENE_PATH="./test_maps/toosmall.cub"
+VALID__ERROR_OUTPUT="Error\nThe map must be at least 3x3\n"
+TEST
+
+touch forbidden_map.cub
+chmod 0 forbidden_map.cub
+SCENE_PATH="forbidden_map.cub"
+VALID__ERROR_OUTPUT="Error\nScene:Permission denied\n"
+TEST
+chmod 777 forbidden_map.cub
+rm  forbidden_map.cub
+
+SCENE_PATH="./test_maps/empty_map.cub"
+VALID__ERROR_OUTPUT="Error\nDude... You forgot to put a map\n"
+TEST
+
+SCENE_PATH="./test_maps/classic_unclosed_1.cub"
+VALID__ERROR_OUTPUT="Error\nThe map is not closed\n"
+TEST
+
+SCENE_PATH="./test_maps/classic_unclosed_2.cub"
+VALID__ERROR_OUTPUT="Error\nThe map is not closed\n"
+TEST
+
+SCENE_PATH="./test_maps/classic_unclosed_3.cub"
+VALID__ERROR_OUTPUT="Error\nThe map is not closed\n"
+TEST
+	# verifier qu'on ne set pas deux fois une couleur
+SCENE_PATH="test_maps/duplicate_C.cub"
+VALID__ERROR_OUTPUT="Error\nColor already set\n"
+TEST
+
+SCENE_PATH="test_maps/duplicate_F.cub"
+VALID__ERROR_OUTPUT="Error\nColor already set\n"
+TEST
+	# pas de texture par defaut
+SCENE_PATH="test_maps/duplicate_NO.cub"
+VALID__ERROR_OUTPUT="Error\nA texture path can only be set up once per scene\n"
+TEST
+
+SCENE_PATH="test_maps/duplicate_EA.cub"
+VALID__ERROR_OUTPUT="Error\nA texture path can only be set up once per scene\n"
+TEST
+
+SCENE_PATH="test_maps/duplicate_SO.cub"
+VALID__ERROR_OUTPUT="Error\nA texture path can only be set up once per scene\n"
+TEST
+
+SCENE_PATH="test_maps/duplicate_WE.cub"
+VALID__ERROR_OUTPUT="Error\nA texture path can only be set up once per scene\n"
+TEST
+	# couleur manquqante
+SCENE_PATH="test_maps/not_set_C.cub"
+VALID__ERROR_OUTPUT="Error\nAll Color and texture informations must be set\n"
+TEST
+
+SCENE_PATH="test_maps/not_set_F.cub"
+VALID__ERROR_OUTPUT="Error\nAll Color and texture informations must be set\n"
+TEST
+	# texture manquante
+SCENE_PATH="test_maps/not_set_EA.cub"
+VALID__ERROR_OUTPUT="Error\nAll Color and texture informations must be set\n"
+TEST
+
+SCENE_PATH="test_maps/not_set_WE.cub"
+VALID__ERROR_OUTPUT="Error\nAll Color and texture informations must be set\n"
+TEST
+
+SCENE_PATH="test_maps/not_set_NO.cub"
+VALID__ERROR_OUTPUT="Error\nAll Color and texture informations must be set\n"
+TEST
+
+SCENE_PATH="test_maps/not_set_SO.cub"
+VALID__ERROR_OUTPUT="Error\nAll Color and texture informations must be set\n"
+TEST
+     # verifier cas d'overflow des couleurs avec un strlen

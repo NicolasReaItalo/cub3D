@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:56:53 by nrea              #+#    #+#             */
-/*   Updated: 2024/06/04 10:56:36 by nrea             ###   ########.fr       */
+/*   Updated: 2024/06/04 11:10:10 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 # define ERR_NOTEX	14
 # define ERR_TEX_ALREADY_SET	15
 # define ERR_COL_ALREADY_SET	16
+# define ERR_NOT_ALL_SET	17
 # define SCREEN_W 1024
 # define SCREEN_H 780
 # define ALPHA 0.065
@@ -65,8 +66,7 @@ Usage: ./cub3D [path_to_scene];\
 No texture found;\
 A texture path can only be set up once per scene;\
 Color already set;\
-Color not set;\
-Texture not set;"
+All Color and texture informations must be set;"
 
 typedef struct s_draw_p
 {
@@ -188,7 +188,6 @@ int			isinset(char c, char *set);
 int			is_all_digits(char *s);
 int			check_valid_colors(char *s1, char *s2, char *s3);
 char		*strip(char *s);
-
 
 /*srcs/scene_parser/map_closing.c*/
 int			is_map_closed(t_data *data);

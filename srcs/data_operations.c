@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 16:07:34 by nrea              #+#    #+#             */
-/*   Updated: 2024/06/03 16:40:33 by nrea             ###   ########.fr       */
+/*   Updated: 2024/06/04 11:34:15 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,21 @@ static void	init_data_const(t_data *data)
 	data->f_color = -1;
 }
 
+static int	are_all_set(t_data *data)
+{
+	if (data->c_color == -1 || data->f_color == -1)
+		return (0);
+	if (data->n_img.path == NULL)
+		return (0);
+	if (data->s_img.path == NULL)
+		return (0);
+	if (data->e_img.path == NULL)
+		return (0);
+	if (data->w_img.path == NULL)
+		return (0);
+	return (1);
+}
+
 int	parser_init(int argc, char **argv, t_data *data)
 {
 	t_line	*scene;
@@ -64,16 +79,17 @@ int	parser_init(int argc, char **argv, t_data *data)
 	if (r)
 		return (r);
 	r = parse_scene(&scene, data);
-	if (r)
-	{
-		free_scene(&scene);
-		free_map(data->map, data->map_h);
-		free_tex_path(data);
-		return (r);
-	}
 	free_scene(&scene);
+	if (r)
+		return (free_map(data->map, data->map_h), free_tex_path(data), r);
 	if (data->map == NULL)
 		return (free_tex_path(data), ERR_NO_MAP);
+	if (!are_all_set(data))
+	{
+		free_tex_path(data);
+		free_map(data->map, data->map_h);
+		return (ERR_NOT_ALL_SET);
+	}
 	init_cam(data);
 	return (SUCCESS);
 }
