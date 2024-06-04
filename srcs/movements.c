@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:43:23 by qgiraux           #+#    #+#             */
-/*   Updated: 2024/06/04 12:41:09 by nrea             ###   ########.fr       */
+/*   Updated: 2024/06/04 12:55:01 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	_rotate_by(t_data *data)
 	int		y;
 
 	tmpx = data->mousex;
-	if (data->mousex > SCREEN_W || data->mousex < SCREEN_W * 0)
+	if (data->mousex > SCREEN_W || data->mousex < 10)
 	{
 		mlx_mouse_move(data->mlx_ptr,
 			data->win_ptr, SCREEN_W / 2, SCREEN_H / 2);
