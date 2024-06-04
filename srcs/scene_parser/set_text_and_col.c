@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 15:54:30 by nrea              #+#    #+#             */
-/*   Updated: 2024/06/04 10:45:45 by nrea             ###   ########.fr       */
+/*   Updated: 2024/06/04 10:58:50 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	get_color_info(int	*color, char *s)
 		return (ERR_INTERNAL);
 	if (ft_split_size(t) != 3)
 		return (ft_free_split(t), ERR_COLOR);
-	if (!check_valid_colors(strip(t[0]), strip(t[1]),strip(t[2])))
+	if (!check_valid_colors(strip(t[0]), strip(t[1]), strip(t[2])))
 		return (ft_free_split(t), ERR_COLOR);
 	r = ft_atoi(t[0]);
 	g = ft_atoi(t[1]);
@@ -46,7 +46,7 @@ int	get_color_info(int	*color, char *s)
 int	get_texture_path(char *content, char **path)
 {
 	if (*path != NULL)
-		return(ERR_TEX_ALREADY_SET);
+		return (ERR_TEX_ALREADY_SET);
 	content += 2;
 	if (!*content)
 		return (ERR_TEX);

@@ -6,7 +6,7 @@
 /*   By: nrea <nrea@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:56:53 by nrea              #+#    #+#             */
-/*   Updated: 2024/06/03 16:59:40 by nrea             ###   ########.fr       */
+/*   Updated: 2024/06/04 10:56:36 by nrea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,6 @@
 # include "../libft/libft.h"
 # include  "../minilibx-linux/mlx.h"
 
-# define DEFAULT_CEILING 0x0000FF
-# define DEFAULT_FLOOR 0xCCCCCC
-# define DEFAULT_NORTH_PATH "default/N.xmp"
-# define DEFAULT_SOUTH_PATH "default/S.xmp"
-# define DEFAULT_EAST_PATH "default/E.xmp"
-# define DEFAULT_WEST_PATH "default/W.xmp"
 # define SUCCESS	0
 # define ERR_INVALID_EXTENSION	1
 # define ERR_OPEN	2
@@ -70,7 +64,9 @@ Dude... You forgot to put a map;\
 Usage: ./cub3D [path_to_scene];\
 No texture found;\
 A texture path can only be set up once per scene;\
-Color already set;"
+Color already set;\
+Color not set;\
+Texture not set;"
 
 typedef struct s_draw_p
 {
