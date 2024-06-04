@@ -2,8 +2,9 @@ N0 default/N.xmp
 SO default/S.xmp
 WE default/W.xmp
 EA default/E.xmp
-F 220,100,0
-C 225,30,0
+
+C 128, 128, 128
+F 200, 200, 200
 
 1111111111111111111111111
 1000000000110000000000001
